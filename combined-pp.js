@@ -849,6 +849,7 @@ window.ppHydrateStoredPromo=function(){try{var pa=localStorage.getItem('pp_appli
 setTimeout(function(){if(window.ppHydrateStoredPromo)ppHydrateStoredPromo();},800);
 setTimeout(function(){if(window.ppHydrateStoredPromo)ppHydrateStoredPromo();},1800);
 (function(){var n=0,t=setInterval(function(){n++;try{if(window.ppHydrateStoredPromo)ppHydrateStoredPromo();}catch(e){}if(n>=8)clearInterval(t);},750);})();
+setInterval(function(){try{if(document.getElementById('pp-cart-page')&&window.ppHydrateStoredPromo)ppHydrateStoredPromo();}catch(e){}},2500);
 window.ppNotifyOrder=function(method,amt){
 try{var _pc=(window.ppAffiliate&&ppAffiliate.applied)||'';if(_pc){try{var _em=(document.getElementById('pp-ship-email')||{}).value||'';navigator.sendBeacon('https://anna-answer-celebs-sky.trycloudflare.com/api/promo-track',JSON.stringify({code:_pc,method:method,amount:amt,email:_em}));}catch(e){}}}catch(e){}
 try{
