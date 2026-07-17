@@ -1003,7 +1003,7 @@ HL:'Peptides researched for repair of muscles, tendons, joints, and gut tissue. 
 OS:'Fast-absorbing oral peptide strips for convenient, needle-free dosing. Dissolve under the tongue for rapid bioavailability without injections.'
 };
 window.ppCats={
-BS:',tirzepatide-30mg,retatrutide-10mg,retatrutide-20mg,semaglutide-5mg,bpc-157-10mg,tb500-10mg,wolverine-stack-bpc-157-10mg-tb500-10mg,glow-stack-70mg,klow-80mg,cjc-1295-ipamorelin-5mg5mg,nad-500mg,tesamorelin-10mg,mots-c-10mg,ghkcu-copper-serum,research-starter-kit,',
+BS:',tirzepatide-30mg,retatrutide-10mg,retatrutide-20mg,semaglutide-5mg,bpc-157-10mg,tb500-10mg,wolverine-stack-bpc-157-10mg-tb500-10mg,glow-stack-70mg,klow-80mg,cjc-1295-ipamorelin-5mg5mg,nad-500mg,tesamorelin-10mg,mots-c-10mg,semax-10mg,ghkcu-copper-serum,research-starter-kit,',
 AP:',bpc-157-10mg,wolverine-stack-bpc-157-5mg-tb500-5mg,tesamorelin-10,cjc-1295-ipamorelin-5mg5mg,ipamorelin-10mg,tb500-10mg,',
 AB:',ghkcu-copper-serum,glow-stack-70mg-bpc-157-10mg-ghk-cu-50mg-tb500-10mg,ghk-cu-copper-100mg,ghk-cu-copper-50mg,melanotan-i-10mg,',
 WL:',retatrutide-10mg,mots-c-10mg,retatrutide-30mg,tesamorelin-10,semaglutide-10mg,semaglutide-5mg,tirzepatide-30mg,aod-9604-10mg,',
