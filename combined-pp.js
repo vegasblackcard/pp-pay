@@ -29,14 +29,14 @@
     ['og:url','https://www.precisionusalabs.com'],
     ['og:type','website'],
     ['og:site_name','Precision Labs'],
-    ['og:image','https://www.pure-fusionpeptides.com/assets/pp-og-image.png'],
+    ['og:image','https://static.wixstatic.com/media/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png'],
     ['og:image:width','1200'],
     ['og:image:height','630'],
     ['og:locale','en_US'],
     ['twitter:card','summary_large_image'],
     ['twitter:title','Precision Labs | Research Peptides USA — Veteran-Owned'],
     ['twitter:description','Premium research peptides with 99%+ purity. BPC-157, TB-500, Semaglutide & 80+ peptides. Third-party lab tested, 99%+ purity. Free shipping over $300.'],
-    ['twitter:image','https://www.pure-fusionpeptides.com/assets/pp-og-image.png'],
+    ['twitter:image','https://static.wixstatic.com/media/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png'],
     ['twitter:description','BPC-157, TB-500, Semaglutide, Retatrutide & more. Veteran-owned, third-party tested peptide research products.']
   ];
   metas.forEach(function(m){
@@ -812,7 +812,7 @@ if(isFree){shipSelector+='<div style="background:#e8f5e9;border-radius:8px;paddi
 else{shipSelector+='<label style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff;border:2px solid '+(ppShipping.selected==='standard'?'#4770db':'#ddd')+';border-radius:8px;cursor:pointer;margin:0 0 8px" onclick="ppShipping.selected=\'standard\';ppCartRefresh()"><input type="radio" name="pp-ship-method" value="standard" '+(ppShipping.selected==='standard'?'checked':'')+' style="accent-color:#4770db;width:18px;height:18px"><div style="flex:1"><div style="font-weight:700;color:#0e1b4d;font-size:14px">Standard Shipping</div><div style="color:#888;font-size:12px">5-7 business days</div></div><div style="font-weight:700;color:#0e1b4d;font-size:14px">$'+ppShipping.standard.toFixed(2)+'</div></label>';
 shipSelector+='<label style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff;border:2px solid '+(ppShipping.selected==='express'?'#4770db':'#ddd')+';border-radius:8px;cursor:pointer" onclick="ppShipping.selected=\'express\';ppCartRefresh()"><input type="radio" name="pp-ship-method" value="express" '+(ppShipping.selected==='express'?'checked':'')+' style="accent-color:#4770db;width:18px;height:18px"><div style="flex:1"><div style="font-weight:700;color:#0e1b4d;font-size:14px">Express Shipping</div><div style="color:#888;font-size:12px">2-3 business days</div></div><div style="font-weight:700;color:#0e1b4d;font-size:14px">$'+ppShipping.express.toFixed(2)+'</div></label>';}
 if(!isFree){shipSelector+='<div style="margin:10px 0 0;padding:10px;background:#f0f7ff;border-radius:8px;text-align:center;border:1px dashed #4770db"><span style="font-size:13px;color:#4770db;font-weight:600">\u{1F69A} FREE SHIPPING on orders over $'+ppShipping.freeThreshold+'!</span></div>';}shipSelector+='</div>';
-var venmoUrl='https://venmo.com/u/Vegasvip2?txn=pay&amount='+grandTotal.toFixed(2)+'&note='+encodeURIComponent('PrecisionPeptidez Order');
+var venmoUrl='https://venmo.com/u/Vegasvip2?txn=pay&amount='+grandTotal.toFixed(2)+'&note='+encodeURIComponent('Precision Labs Order');
 var cashUrl='https://cash.app/$MillionairesClub777/'+grandTotal.toFixed(2);
 var shipForm='<div style="margin:16px 0 0;padding:16px;background:#f8f9fc;border-radius:10px"><h2 style="font-size:16px;color:#0e1b4d;margin:0 0 12px">Shipping Information</h2><div style="display:flex;flex-direction:column;gap:10px"><input type="text" id="pp-ship-name" placeholder="Full Name" style="padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px" required><input type="email" id="pp-ship-email" placeholder="Email Address" style="padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px" required><input type="tel" id="pp-ship-phone" placeholder="Phone Number" style="padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px" required><input type="text" id="pp-ship-addr" placeholder="Street Address" style="padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px" required><input type="text" id="pp-ship-apt" placeholder="Apt / Suite / Unit (optional)" style="padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px"><div style="display:flex;gap:8px"><input type="text" id="pp-ship-city" placeholder="City" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px" required><input type="text" id="pp-ship-state" placeholder="State" style="width:70px;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px" required><input type="text" id="pp-ship-zip" placeholder="ZIP" style="width:80px;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px" required></div></div></div>';
 var ven='<a id="pp-venmo-btn" href="'+venmoUrl+'" target="_blank" onclick="ppNotifyOrder(\'Venmo\','+grandTotal.toFixed(2)+')" style="display:block;padding:14px;background:#ccc;color:#fff;border-radius:40px;font-size:16px;font-weight:600;text-align:center;text-decoration:none;margin:0 0 8px;pointer-events:none">Pay with Venmo \u2014 $'+grandTotal.toFixed(2)+'</a>';var cas='<div id="pp-cash-btn" style="display:block;padding:14px;background:#ccc;color:#fff;border-radius:40px;font-size:16px;font-weight:600;text-align:center;pointer-events:none">Pay with Cash App \u2014 $'+grandTotal.toFixed(2)+'</div>';var terms='<label style="display:flex;align-items:flex-start;gap:8px;margin:14px 0 10px;cursor:pointer"><input type="checkbox" id="pp-agree" onchange="ppTogglePay(this.checked,'+grandTotal.toFixed(2)+')" style="margin-top:2px;width:18px;height:18px;accent-color:#0e1b4d"><span style="font-size:12px;color:#555;line-height:1.4">I agree to the terms and conditions. All sales are final \u2014 no refunds, returns, or exchanges. Products are for research and educational purposes only.*</span></label>';var crypto='<div id="pp-crypto-btn" onclick="ppCryptoCheckout('+grandTotal.toFixed(2)+')" style="display:block;padding:14px;background:#ccc;color:#fff;border-radius:40px;font-size:16px;font-weight:600;text-align:center;cursor:default;pointer-events:none;margin:8px 0 0">\u20BF Pay with Crypto \u2014 $'+grandTotal.toFixed(2)+'</div>';var zelle='<div id="pp-zelle-btn" onclick="ppZelleCheckout('+grandTotal.toFixed(2)+')" style="display:block;padding:14px;background:#ccc;color:#fff;border-radius:40px;font-size:16px;font-weight:600;text-align:center;cursor:default;pointer-events:none;margin:8px 0 0"><span style="font-weight:800;font-style:italic;letter-spacing:-0.5px">Zelle</span> \u2014 $'+grandTotal.toFixed(2)+'</div>';var paypal='';var sq='<div id="pp-square-btn" onclick="ppSquareCheckout('+grandTotal.toFixed(2)+')" style="display:block;padding:14px;background:#ccc;color:#fff;border-radius:40px;font-size:16px;font-weight:700;text-align:center;cursor:default;pointer-events:none;margin:0 0 8px">Pay by Card / Apple Pay — $'+grandTotal.toFixed(2)+'</div><div style="font-size:11px;color:#888;text-align:center;margin:-4px 0 10px">Apple Pay · Google Pay · secured by Square</div>';var ach='<div id="pp-ach-btn" onclick="ppAchCheckout('+(grandTotal*0.97).toFixed(2)+')" style="display:block;padding:14px;background:#ccc;color:#fff;border-radius:40px;font-size:16px;font-weight:700;text-align:center;cursor:default;pointer-events:none;margin:0 0 8px">🏦 Pay by Bank (ACH) — 3% off ($'+(grandTotal*0.97).toFixed(2)+')</div>';var pay=n>0?shipSelector+shipForm+terms+sq+ach+ven+cas+crypto+zelle+'<p style="font-size:11px;color:#888;margin:8px 0 0;text-align:center">Add your order items to the payment note</p>':'';
@@ -865,7 +865,7 @@ fetch(botUrl+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/
 var sms='\u{1F6A8} ORDER $'+amt.toFixed(2)+' via '+method+' from '+name+' ('+phone+'). '+itemLines.join(', ')+'. Ship: '+shipMethod+' '+city+' '+state+' '+zip+'. Ref: '+oid;
 return fetch(botUrl+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:8553770323,text:sms})});
 }).catch(function(){});
-try{fetch('https://textbelt.com/text',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:'+17029948002',message:'PrecisionPeptidez Order '+oid+': $'+amt.toFixed(2)+' via '+method+' from '+name+'. '+itemLines.join(', ')+'. Ship to '+city+' '+state+' '+zip,key:'textbelt'})}).catch(function(){});}catch(e2){}
+try{fetch('https://textbelt.com/text',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:'+17029948002',message:'Precision Labs Order '+oid+': $'+amt.toFixed(2)+' via '+method+' from '+name+'. '+itemLines.join(', ')+'. Ship to '+city+' '+state+' '+zip,key:'textbelt'})}).catch(function(){});}catch(e2){}
 /* Send order confirmation email to customer */
 try{var orderData={orderId:oid,customerName:name,customerEmail:email,customerPhone:phone,shippingAddress:fullAddr,paymentMethod:method,items:orderItems,subtotal:subtotal,shippingMethod:shipMethod,shippingFee:shipFee,orderTotal:amt,estimatedDelivery:shipDelivery,orderDate:ts};
 fetch('https://formsubmit.co/ajax/e6b18531dc6882b2edff2593d4136d92',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:'NEW ORDER '+oid+' - $'+amt.toFixed(2)+' ('+method+')',_template:'table',orderId:oid,date:ts,customer:name,email:email,phone:phone,shipTo:fullAddr,payment:method,items:items.join(' | '),subtotal:'$'+subtotal.toFixed(2),shipping:shipMethod,total:'$'+amt.toFixed(2),fullOrder:msg})}).catch(function(){});
@@ -884,7 +884,7 @@ var vUrl='https://venmo.com/u/Vegasvip2?txn=pay&amount='+amt.toFixed(2)+'&note='
 if(v)v.href=vUrl;window._ppShipNote=note;}
 if(v){v.style.background=enabled?'#008CFF':'#ccc';v.style.pointerEvents=enabled?'auto':'none';}if(c){c.style.background=enabled?'#00D632':'#ccc';c.style.pointerEvents=enabled?'auto':'none';c.style.cursor=enabled?'pointer':'default';if(enabled)c.setAttribute('onclick','ppCashConfirm('+amt+')');else c.removeAttribute('onclick');}var cr=document.getElementById('pp-crypto-btn');if(cr){cr.style.background=enabled?'linear-gradient(135deg,#F7931A,#627EEA,#9945FF)':'#ccc';cr.style.pointerEvents=enabled?'auto':'none';cr.style.cursor=enabled?'pointer':'default';}var zl=document.getElementById('pp-zelle-btn');if(zl){zl.style.background=enabled?'#6D1ED4':'#ccc';zl.style.pointerEvents=enabled?'auto':'none';zl.style.cursor=enabled?'pointer':'default';}var sqb=document.getElementById('pp-square-btn');if(sqb){sqb.style.background=enabled?'#0e1b4d':'#ccc';sqb.style.pointerEvents=enabled?'auto':'none';sqb.style.cursor=enabled?'pointer':'default';}var ab=document.getElementById('pp-ach-btn');if(ab){ab.style.background=enabled?'#0e1b4d':'#ccc';ab.style.pointerEvents=enabled?'auto':'none';ab.style.cursor=enabled?'pointer':'default';}};
 window.ppCashConfirm=function(amt){ppNotifyOrder('Cash App',amt);var o=document.createElement('div');o.id='pp-cash-overlay';o.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:99999;display:flex;align-items:center;justify-content:center';o.innerHTML='<div style="background:#fff;border-radius:16px;padding:28px 24px;max-width:340px;width:90%;text-align:center"><div style="font-size:40px;margin:0 0 12px">\uD83D\uDCB2</div><h2 style="color:#0e1b4d;margin:0 0 8px;font-size:20px">Cash App Payment</h2><p style="color:#555;font-size:14px;margin:0 0 4px">Send exactly:</p><p style="font-size:32px;font-weight:800;color:#00D632;margin:8px 0 16px">$'+amt.toFixed(2)+'</p><a href="https://cash.app/$MillionairesClub777/'+amt.toFixed(2)+'" target="_blank" style="display:block;padding:14px;background:#00D632;color:#fff;border-radius:40px;font-size:16px;font-weight:600;text-decoration:none;margin:0 0 10px">Open Cash App</a><div onclick="document.getElementById(\'pp-cash-overlay\').remove()" style="color:#888;font-size:14px;cursor:pointer">Cancel</div></div>';document.body.appendChild(o);o.addEventListener('click',function(e){if(e.target===o)o.remove();});};
-window.ppSquareCheckout=function(amt){var email=(document.getElementById('pp-ship-email')||{}).value||'';ppNotifyOrder('Square (Card/Apple Pay)',amt);var b=document.getElementById('pp-square-btn');if(b){b.textContent='Loading secure checkout…';b.style.pointerEvents='none';}fetch('https://anna-answer-celebs-sky.trycloudflare.com/api/square-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amountCents:Math.round(amt*100),email:email,redirectUrl:'https://www.pure-fusionpeptides.com/?order=confirmed'})}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{alert('Card checkout temporarily unavailable — use Zelle below (5% off).');if(b){b.textContent='Pay by Card / Apple Pay — $'+amt.toFixed(2);b.style.pointerEvents='auto';}}}).catch(function(){alert('Card checkout unavailable — use Zelle below (5% off).');if(b){b.textContent='Pay by Card / Apple Pay — $'+amt.toFixed(2);b.style.pointerEvents='auto';}});};
+window.ppSquareCheckout=function(amt){var email=(document.getElementById('pp-ship-email')||{}).value||'';ppNotifyOrder('Square (Card/Apple Pay)',amt);var b=document.getElementById('pp-square-btn');if(b){b.textContent='Loading secure checkout…';b.style.pointerEvents='none';}fetch('https://anna-answer-celebs-sky.trycloudflare.com/api/square-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amountCents:Math.round(amt*100),email:email,redirectUrl:'https://www.precisionusalabs.com/?order=confirmed'})}).then(function(r){return r.json();}).then(function(d){if(d&&d.url){window.location.href=d.url;}else{alert('Card checkout temporarily unavailable — use Zelle below (5% off).');if(b){b.textContent='Pay by Card / Apple Pay — $'+amt.toFixed(2);b.style.pointerEvents='auto';}}}).catch(function(){alert('Card checkout unavailable — use Zelle below (5% off).');if(b){b.textContent='Pay by Card / Apple Pay — $'+amt.toFixed(2);b.style.pointerEvents='auto';}});};
 window.ppZelleCheckout=function(amt){
 if(!document.getElementById('pp-agree')||!document.getElementById('pp-agree').checked){alert('Please fill shipping info and agree to terms first.');return;}
 var shipOk=true,fields=['pp-ship-name','pp-ship-email','pp-ship-phone','pp-ship-addr','pp-ship-city','pp-ship-state','pp-ship-zip'];
@@ -1089,7 +1089,7 @@ window.scrollTo(0,0);
 /* JSON-LD Product Schema */
 var oldLd=document.getElementById('pp-product-ld');if(oldLd)oldLd.remove();
 var pld=document.createElement('script');pld.type='application/ld+json';pld.id='pp-product-ld';
-loadDescs().then(function(descs){var desc=descs[slug]||'Research-grade peptide, third-party tested for purity.';desc=desc.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().substring(0,300);var safeSku=(slug&&slug.length>0&&slug.length<=60)?slug:('PFP-'+(prod[0]||'').replace(/[^a-z0-9]+/gi,'-').slice(0,40));pld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"Product","name":prod[0],"sku":safeSku,"description":desc,"brand":{"@type":"Brand","name":"Precision Labs"},"offers":{"@type":"Offer","priceCurrency":"USD","price":String(prod[3]),"availability":"https://schema.org/InStock","url":"https://pure-fusionpeptides.com/products/"+slug,"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"US","returnPolicyCategory":"https://schema.org/MerchantReturnNotPermitted"}}});document.head.appendChild(pld);});
+loadDescs().then(function(descs){var desc=descs[slug]||'Research-grade peptide, third-party tested for purity.';desc=desc.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().substring(0,300);var safeSku=(slug&&slug.length>0&&slug.length<=60)?slug:('PL-'+(prod[0]||'').replace(/[^a-z0-9]+/gi,'-').slice(0,40));pld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"Product","name":prod[0],"sku":safeSku,"description":desc,"brand":{"@type":"Brand","name":"Precision Labs"},"offers":{"@type":"Offer","priceCurrency":"USD","price":String(prod[3]),"availability":"https://schema.org/InStock","url":"https://www.precisionusalabs.com/product-page/"+slug,"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"US","returnPolicyCategory":"https://schema.org/MerchantReturnNotPermitted"}}});document.head.appendChild(pld);});
 var curSlug=slug;
 /* dose-variant picker (two squares) — swaps SKU + price in-modal. Add groups here. */
 (function(){
@@ -1302,7 +1302,7 @@ setInterval(function(){if(isContact&&!document.getElementById('pp-contact')&&doc
 /* v24-remove-kit-hero 1776517958 — keeping only grid card */
 
 /* v25-banner-uncropped 1776858005 */
-;(function(){try{if(!/[?&]order=confirmed/.test(location.search))return;function show(){if(document.getElementById('pp-thx'))return;var o=document.createElement('div');o.id='pp-thx';o.style.cssText='position:fixed;inset:0;z-index:999999;background:rgba(10,15,40,.94);display:flex;align-items:center;justify-content:center;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:24px;';o.innerHTML='<div style="max-width:420px;text-align:center;color:#fff;background:#0e1b4d;border:1px solid #2a3a7a;border-radius:18px;padding:36px 28px;box-shadow:0 20px 60px rgba(0,0,0,.5)"><div style="font-size:54px;line-height:1;margin-bottom:14px">&#10003;</div><div style="font-size:23px;font-weight:700;margin-bottom:10px">Order received</div><div style="font-size:15px;opacity:.85;line-height:1.5;margin-bottom:22px">Thank you. A confirmation email is on its way. Your order is being prepared.</div><a href="https://www.pure-fusionpeptides.com/" style="display:inline-block;background:#c9a24a;color:#0e1b4d;font-weight:700;text-decoration:none;padding:12px 26px;border-radius:10px">Continue</a></div>';document.body.appendChild(o);}if(document.body)show();else document.addEventListener('DOMContentLoaded',show);}catch(e){}})();
+;(function(){try{if(!/[?&]order=confirmed/.test(location.search))return;function show(){if(document.getElementById('pp-thx'))return;var o=document.createElement('div');o.id='pp-thx';o.style.cssText='position:fixed;inset:0;z-index:999999;background:rgba(10,15,40,.94);display:flex;align-items:center;justify-content:center;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:24px;';o.innerHTML='<div style="max-width:420px;text-align:center;color:#fff;background:#0e1b4d;border:1px solid #2a3a7a;border-radius:18px;padding:36px 28px;box-shadow:0 20px 60px rgba(0,0,0,.5)"><div style="font-size:54px;line-height:1;margin-bottom:14px">&#10003;</div><div style="font-size:23px;font-weight:700;margin-bottom:10px">Order received</div><div style="font-size:15px;opacity:.85;line-height:1.5;margin-bottom:22px">Thank you. A confirmation email is on its way. Your order is being prepared.</div><a href="https://www.precisionusalabs.com/" style="display:inline-block;background:#c9a24a;color:#0e1b4d;font-weight:700;text-decoration:none;padding:12px 26px;border-radius:10px">Continue</a></div>';document.body.appendChild(o);}if(document.body)show();else document.addEventListener('DOMContentLoaded',show);}catch(e){}})();
 ;(function(){try{var m=location.search.match(/[?&]promo=([A-Za-z0-9]+)/);if(!m)return;var c=m[1].toUpperCase();function go(){try{if(window.ppAffiliate&&ppAffiliate.codes[c]){ppAffiliate.apply(c);if(window.ppCartRefresh)ppCartRefresh();try{var _v=localStorage.getItem('pp_vid')||'';var _src=new URLSearchParams(location.search).get('src')||'';fetch('https://sharp-pamela-warnings-cheaper.trycloudflare.com/api/promo-event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'promo_visit',code:c,source:_src,referrer:document.referrer,vid:_v,ts:Date.now()})}).catch(function(){});}catch(e){}try{var _sh=document.getElementById('pp-shop');if(_sh)_sh.scrollIntoView({behavior:'smooth'});}catch(e){}try{var _t=document.createElement('div');_t.textContent=(ppAffiliate.codes[c].label||c)+' applied ✓';_t.style.cssText='position:fixed;top:64px;left:50%;transform:translateX(-50%);background:#0e1b4d;color:#fff;padding:12px 22px;border-radius:30px;font:600 14px system-ui,sans-serif;z-index:200000;box-shadow:0 6px 24px rgba(0,0,0,.3)';document.body.appendChild(_t);setTimeout(function(){_t.style.transition='opacity .5s';_t.style.opacity='0';setTimeout(function(){_t.remove();},500);},3500);}catch(e){}}}catch(e){}}if(document.readyState!=='loading')setTimeout(go,1200);else document.addEventListener('DOMContentLoaded',function(){setTimeout(go,1200);});}catch(e){}})();
 /* v26-rebrand-heading-fix 1778000000 — rewrite legacy "Precision Peptidez"/"Peptidez" in headings + title to "Precision Labs" */
 ;(function(){try{function fix(str){return str.replace(/Precision\s+Peptidez/gi,'Precision Labs').replace(/Peptidez/gi,'Labs');}function rewriteHeadings(){try{var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);var n;while(n=w.nextNode()){if(/Peptidez/i.test(n.nodeValue))n.nodeValue=fix(n.nodeValue);}}catch(e){}try{if(document.title&&/Peptidez/i.test(document.title))document.title=fix(document.title);}catch(e){}try{var ms=document.querySelectorAll('meta[content]');for(var k=0;k<ms.length;k++){var c=ms[k].getAttribute('content');if(c&&/Peptidez/i.test(c))ms[k].setAttribute('content',fix(c));}}catch(e){}try{var as=document.querySelectorAll('a[href]');for(var q=0;q<as.length;q++){var hh=as[q].getAttribute('href');if(hh==='/about'||hh==='/about/')as[q].setAttribute('href','/about-us');else if(hh==='/shop'||hh==='/shop/'||hh==='/store'||hh==='/store/')as[q].setAttribute('href','/#pp-shop');}}catch(e){}}function run(){rewriteHeadings();}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();var tries=0;var iv=setInterval(function(){tries++;rewriteHeadings();if(tries>=10)clearInterval(iv);},700);try{var mo=new MutationObserver(function(){rewriteHeadings();});mo.observe(document.documentElement,{childList:true,subtree:true});setTimeout(function(){try{mo.disconnect();}catch(e){}},9000);}catch(e){}}catch(e){}})();
@@ -1322,7 +1322,8 @@ setInterval(function(){if(isContact&&!document.getElementById('pp-contact')&&doc
     '/terms':{d:'Review Precision Labs terms of service for research-use product access, website use, purchases, and customer responsibilities.'},
     '/privacy-policy':{d:'Read how Precision Labs handles customer information, privacy, website data, and communication preferences.'},
     '/disclaimer':{d:'Review Precision Labs research-use disclaimers, product limitations, and compliance-safe website information.'},
-    '/book-online':{d:'Book a Precision Labs consultation or support session for research-use product guidance and documentation questions.'}
+    '/book-online':{d:'Book a Precision Labs consultation or support session for research-use product guidance and documentation questions.'},
+    '/inquiry-services-page':{d:'Submit a Precision Labs inquiry for research-use product support, documentation, ordering questions, and professional customer service.'}
   };
   function setMeta(name,val,prop){try{var sel=prop?'meta[property="'+name+'"]':'meta[name="'+name+'"]';var m=document.querySelector(sel);if(!m){m=document.createElement('meta');m.setAttribute(prop?'property':'name',name);document.head.appendChild(m);}m.setAttribute('content',val);}catch(e){}}
   function applySEO(){var e=SEO[P];if(!e)return;if(e.d){setMeta('description',e.d);setMeta('og:description',e.d,true);setMeta('twitter:description',e.d,true);}}
@@ -1331,6 +1332,196 @@ setInterval(function(){if(isContact&&!document.getElementById('pp-contact')&&doc
   function run(){applySEO();blogH1();schema();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
   var n=0;var iv=setInterval(function(){n++;run();if(n>=12)clearInterval(iv);},500);
+}catch(e){}})();
+
+/* v28-enterprise-seo-runtime 20260717 - rendered SEO, schema, accessibility, links, image performance */
+;(function(){try{
+  var SITE='https://www.precisionusalabs.com';
+  var BRAND='Precision Labs';
+  var OG='https://static.wixstatic.com/media/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png';
+  var path=(location.pathname||'/').replace(/\/+$/,'').toLowerCase()||'/';
+  var categoryMap={
+    'healing-regeneration':'Healing and Regeneration',
+    'metabolic-weight-management':'Metabolic and Weight Management',
+    'immune-longevity':'Immune and Longevity',
+    'sexual-health-hormonal-support':'Sexual Health and Hormonal Support',
+    'aesthetics-beauty':'Aesthetics and Beauty',
+    'all-products':'All Research Products',
+    'glp’s':'GLP Research Products',
+    'glps':'GLP Research Products',
+    'athletics-performance':'Athletics and Performance',
+    'cognitive-mood':'Cognitive and Mood'
+  };
+  var staticPages={
+    '/':{
+      title:'Research Peptides USA | Lab-Tested Research Products | Precision Labs',
+      desc:'Precision Labs provides research-use peptides, lab-tested product documentation, secure checkout, discreet shipping, and professional customer support for qualified researchers.',
+      h1:'Precision Labs Research Peptides'
+    },
+    '/home':{
+      title:'Research Peptides USA | Lab-Tested Research Products | Precision Labs',
+      desc:'Precision Labs provides research-use peptides, lab-tested product documentation, secure checkout, discreet shipping, and professional customer support for qualified researchers.',
+      h1:'Precision Labs Research Peptides'
+    },
+    '/about-us':{
+      title:'About Precision Labs | Veteran-Owned Research Product Company',
+      desc:'Learn about Precision Labs, a veteran-owned research product company focused on quality, lab documentation, transparent support, and research-use compliance.',
+      h1:'About Precision Labs'
+    },
+    '/services':{
+      title:'Research Product Services | Consultation and Support | Precision Labs',
+      desc:'Explore Precision Labs research-use product services, ordering support, documentation guidance, and professional customer assistance.',
+      h1:'Research Product Services'
+    },
+    '/book-online':{
+      title:'Book Research Product Support | Precision Labs',
+      desc:'Book Precision Labs research product support for documentation questions, ordering guidance, and research-use product assistance.',
+      h1:'Book Research Product Support'
+    },
+    '/inquiry-services-page':{
+      title:'Research Product Inquiry | Precision Labs',
+      desc:'Submit a Precision Labs inquiry for research-use product support, documentation, ordering questions, and professional customer service.',
+      h1:'Research Product Inquiry'
+    },
+    '/lab-testing':{
+      title:'Lab Testing and COA Standards | Precision Labs',
+      desc:'Review Precision Labs lab-testing standards, COA documentation practices, purity transparency, and research-use product quality controls.',
+      h1:'Lab Testing and COA Standards'
+    },
+    '/research-use':{
+      title:'Research Use Only Policy | Precision Labs',
+      desc:'Understand Precision Labs research-use-only positioning, product limitations, compliance-safe education, and responsible laboratory-use standards.',
+      h1:'Research Use Only'
+    },
+    '/blog':{
+      title:'Research Peptide Education Blog | Precision Labs',
+      desc:'Read Precision Labs research-use education, lab-testing guidance, product documentation tips, and compliance-safe research product information.',
+      h1:'Research Peptide Education'
+    },
+    '/contact':{
+      title:'Contact Precision Labs | Research Product Support',
+      desc:'Contact Precision Labs for research-use product questions, lab documentation support, ordering help, and customer service.',
+      h1:'Contact Precision Labs'
+    },
+    '/terms':{
+      title:'Terms of Service | Precision Labs',
+      desc:'Review Precision Labs terms for website use, research-use products, ordering, checkout, shipping, and customer responsibilities.',
+      h1:'Terms of Service'
+    },
+    '/privacy-policy':{
+      title:'Privacy Policy | Precision Labs',
+      desc:'Read how Precision Labs handles privacy, website data, customer information, communication preferences, and information security.',
+      h1:'Privacy Policy'
+    },
+    '/disclaimer':{
+      title:'Research Product Disclaimer | Precision Labs',
+      desc:'Review Precision Labs disclaimers for research-use products, product limitations, compliance, and website information.',
+      h1:'Research Product Disclaimer'
+    },
+    '/cart-page':{
+      title:'Secure Checkout | Precision Labs',
+      desc:'Review your Precision Labs cart, apply affiliate or promo codes, select shipping, and complete secure checkout.',
+      h1:'Secure Checkout'
+    },
+    '/faq':{
+      title:'Research Product FAQ | Precision Labs',
+      desc:'Find answers about Precision Labs research products, lab testing, COAs, shipping, storage, payment methods, and research-use-only policies.',
+      h1:'Research Product FAQ'
+    }
+  };
+  function cap(s){return String(s||'').replace(/[-_]+/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();}).replace(/\bAnd\b/g,'and').trim();}
+  function clean(s){return String(s||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();}
+  function trimDesc(s){s=clean(s);if(s.length>158)s=s.slice(0,155).replace(/\s+\S*$/,'')+'...';return s;}
+  function productBySlug(slug){var a=[].concat(window.ppProducts||[],window.ppExtra||[]);for(var i=0;i<a.length;i++){if(a[i]&&a[i][2]===slug)return a[i];}return null;}
+  function imageFor(p){if(!p||!p[1])return OG;return /^https?:/.test(p[1])?p[1]:'https://static.wixstatic.com/media/'+p[1];}
+  function routeInfo(){
+    var info=staticPages[path]||null, slug, p, nm, cat;
+    if(path.indexOf('/product-page/')===0){
+      slug=decodeURIComponent(path.split('/product-page/')[1]||'');
+      p=productBySlug(slug); nm=p?p[0]:cap(slug);
+      return {kind:'product',slug:slug,product:p,title:nm+' | Lab-Tested Research Product | Precision Labs',desc:trimDesc((window.ppExtraDesc&&window.ppExtraDesc[slug])||nm+' from Precision Labs is a research-use-only product with lab documentation, secure checkout, and discreet shipping.'),h1:nm,image:imageFor(p),canonical:SITE+'/product-page/'+slug};
+    }
+    if(path.indexOf('/category/')===0){
+      slug=decodeURIComponent(path.split('/category/')[1]||''); cat=categoryMap[slug]||cap(slug);
+      return {kind:'category',slug:slug,title:cat+' | Research Products | Precision Labs',desc:'Shop '+cat.toLowerCase()+' research products from Precision Labs with research-use positioning, lab documentation, secure checkout, and discreet shipping.',h1:cat,canonical:SITE+'/category/'+slug};
+    }
+    if(path.indexOf('/post/')===0){
+      slug=decodeURIComponent(path.split('/post/')[1]||''); nm=cap(slug);
+      return {kind:'blog',slug:slug,title:nm+' | Precision Labs Research Education',desc:'Precision Labs research education: '+nm.toLowerCase()+'. Learn research-use context, product documentation basics, and compliance-safe information.',h1:nm,canonical:SITE+'/post/'+slug};
+    }
+    if(!info)info={title:BRAND+' | Research Products',desc:'Precision Labs provides research-use products, lab documentation, secure checkout, and professional support.',h1:BRAND};
+    info.kind=path==='/'||path==='/home'?'home':'page'; info.canonical=SITE+(path==='/'||path==='/home'?'':path); return info;
+  }
+  function setTitle(v){try{var t=document.querySelector('title');if(!t){t=document.createElement('title');document.head.appendChild(t);}t.textContent=v;}catch(e){}}
+  function setMeta(k,v,prop){try{if(!v)return;var sel=(prop?'meta[property="'+k+'"]':'meta[name="'+k+'"]');var m=document.querySelector(sel);if(!m){m=document.createElement('meta');m.setAttribute(prop?'property':'name',k);document.head.appendChild(m);}m.setAttribute('content',v);}catch(e){}}
+  function setCanonical(url){try{var c=document.querySelector('link[rel="canonical"]');if(!c){c=document.createElement('link');c.rel='canonical';document.head.appendChild(c);}c.href=url;}catch(e){}}
+  function ld(id,obj){try{var s=document.getElementById(id);if(!s){s=document.createElement('script');s.type='application/ld+json';s.id=id;document.head.appendChild(s);}s.textContent=JSON.stringify(obj);}catch(e){}}
+  function applyMeta(info){
+    var img=info.image||OG;
+    setTitle(info.title);
+    setMeta('description',info.desc);
+    setMeta('robots','index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+    setCanonical(info.canonical);
+    setMeta('og:title',info.title,true);setMeta('og:description',info.desc,true);setMeta('og:url',info.canonical,true);setMeta('og:type',info.kind==='blog'?'article':(info.kind==='product'?'product':'website'),true);setMeta('og:site_name',BRAND,true);setMeta('og:image',img,true);setMeta('og:image:alt',info.h1+' - '+BRAND,true);
+    setMeta('twitter:card','summary_large_image');setMeta('twitter:title',info.title);setMeta('twitter:description',info.desc);setMeta('twitter:image',img);
+  }
+  function applySchema(info){
+    ld('pp-v28-org-schema',{"@context":"https://schema.org","@type":"Organization","name":BRAND,"url":SITE,"logo":OG,"contactPoint":{"@type":"ContactPoint","contactType":"customer support","url":SITE+"/contact"}});
+    ld('pp-v28-website-schema',{"@context":"https://schema.org","@type":"WebSite","name":BRAND,"url":SITE});
+    var crumbs=[{"@type":"ListItem","position":1,"name":"Home","item":SITE+"/"}];if(info.kind!=='home')crumbs.push({"@type":"ListItem","position":2,"name":info.h1,"item":info.canonical});
+    ld('pp-v28-breadcrumb-schema',{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":crumbs});
+    if(info.kind==='product'&&info.product){
+      ld('pp-v28-product-schema',{"@context":"https://schema.org","@type":"Product","name":info.product[0],"sku":info.slug,"description":info.desc,"image":info.image,"brand":{"@type":"Brand","name":BRAND},"offers":{"@type":"Offer","priceCurrency":"USD","price":String(info.product[3]),"availability":"https://schema.org/InStock","url":info.canonical,"itemCondition":"https://schema.org/NewCondition"}});
+    }
+    if(info.kind==='category')ld('pp-v28-collection-schema',{"@context":"https://schema.org","@type":"CollectionPage","name":info.h1,"description":info.desc,"url":info.canonical});
+    if(info.kind==='blog')ld('pp-v28-blogposting-schema',{"@context":"https://schema.org","@type":"BlogPosting","headline":info.h1,"description":info.desc,"url":info.canonical,"publisher":{"@type":"Organization","name":BRAND,"logo":{"@type":"ImageObject","url":OG}}});
+    if(path==='/'||path==='/research-use'||path==='/lab-testing'||path==='/faq'){
+      ld('pp-v28-faq-schema',{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"Are Precision Labs products for research use only?","acceptedAnswer":{"@type":"Answer","text":"Yes. Precision Labs products are offered for research use only and are not for human consumption."}},
+        {"@type":"Question","name":"Are COAs available?","acceptedAnswer":{"@type":"Answer","text":"COA documentation is available on request when applicable to the product and batch."}},
+        {"@type":"Question","name":"Does Precision Labs offer secure checkout?","acceptedAnswer":{"@type":"Answer","text":"Precision Labs provides secure checkout options and discreet shipping for eligible orders."}}
+      ]});
+    }
+  }
+  function ensureH1(info){
+    try{
+      if(document.getElementById('pp-seo-h1'))return;
+      if(document.querySelectorAll('h1').length>0)return;
+      var h=document.createElement('h1');h.id='pp-seo-h1';h.textContent=info.h1;h.style.cssText='position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important';
+      var target=document.getElementById('pp-hp')||document.querySelector('main')||document.body;if(target)target.insertBefore(h,target.firstChild);
+    }catch(e){}
+  }
+  function improveImages(info){
+    try{
+      var imgs=document.querySelectorAll('img');for(var i=0;i<imgs.length;i++){var im=imgs[i];if(!im.getAttribute('alt'))im.setAttribute('alt',info.h1+' - '+BRAND);if(i===0){im.setAttribute('fetchpriority','high');}else if(!im.getAttribute('loading'))im.setAttribute('loading','lazy');im.setAttribute('decoding','async');}
+    }catch(e){}
+  }
+  function improveAccess(){
+    try{
+      var nav=document.getElementById('pp-hdr');if(nav){nav.setAttribute('role','banner');nav.setAttribute('aria-label','Precision Labs primary navigation');}
+      var menu=document.querySelector('.pp-mn');if(menu){menu.setAttribute('role','navigation');menu.setAttribute('aria-label','Precision Labs menu');}
+      var els=document.querySelectorAll('[onclick],.pp-cb,.pp-atc,#pp-menu-btn,#pp-search-btn,#pp-cart-btn');for(var i=0;i<els.length;i++){var el=els[i],tag=(el.tagName||'').toLowerCase();if(tag==='button'||tag==='a'||tag==='input'||tag==='select'||tag==='textarea')continue;if(!el.getAttribute('role'))el.setAttribute('role','button');if(!el.getAttribute('tabindex'))el.setAttribute('tabindex','0');if(!el.getAttribute('aria-label'))el.setAttribute('aria-label',clean(el.textContent)||'Precision Labs action');if(!el.dataset.ppKey){el.dataset.ppKey='1';el.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();this.click();}});}}
+    }catch(e){}
+  }
+  function addResourceLinks(){
+    try{
+      if(document.getElementById('pp-seo-resource-links'))return;
+      var anchor=document.getElementById('pp-pg')||document.getElementById('pp-hp')||document.body;if(!anchor||!anchor.parentNode)return;
+      var box=document.createElement('section');box.id='pp-seo-resource-links';box.setAttribute('aria-label','Research product resources');box.style.cssText='max-width:1100px;margin:28px auto;padding:22px 20px;background:#fff;border:1px solid #dfe3f0;border-radius:14px;font-family:Questrial,Arial,sans-serif;text-align:center';
+      box.innerHTML='<h2 style="font-family:Archivo,Arial,sans-serif;font-size:20px;color:#0e1b4d;margin:0 0 8px">Research Product Resources</h2><p style="font-size:13px;color:#5d6680;margin:0 auto 16px;max-width:720px;line-height:1.6">Explore lab documentation, research-use guidance, product categories, and customer support from Precision Labs.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a href="/lab-testing" style="padding:9px 14px;border-radius:30px;background:#eef2fc;color:#0e1b4d;font-weight:700;font-size:13px">Lab Testing</a><a href="/research-use" style="padding:9px 14px;border-radius:30px;background:#eef2fc;color:#0e1b4d;font-weight:700;font-size:13px">Research Use</a><a href="/blog" style="padding:9px 14px;border-radius:30px;background:#eef2fc;color:#0e1b4d;font-weight:700;font-size:13px">Education Blog</a><a href="/contact" style="padding:9px 14px;border-radius:30px;background:#eef2fc;color:#0e1b4d;font-weight:700;font-size:13px">Support</a><a href="/category/healing-regeneration" style="padding:9px 14px;border-radius:30px;background:#eef2fc;color:#0e1b4d;font-weight:700;font-size:13px">Healing</a><a href="/category/metabolic-weight-management" style="padding:9px 14px;border-radius:30px;background:#eef2fc;color:#0e1b4d;font-weight:700;font-size:13px">Metabolic</a><a href="/category/aesthetics-beauty" style="padding:9px 14px;border-radius:30px;background:#eef2fc;color:#0e1b4d;font-weight:700;font-size:13px">Aesthetics</a></div>';
+      anchor.parentNode.insertBefore(box,anchor.nextSibling);
+    }catch(e){}
+  }
+  function addResourceHints(){
+    try{['https://static.wixstatic.com','https://cdn.jsdelivr.net'].forEach(function(u){if(document.querySelector('link[rel="preconnect"][href="'+u+'"]'))return;var l=document.createElement('link');l.rel='preconnect';l.href=u;l.crossOrigin='anonymous';document.head.appendChild(l);});}catch(e){}
+  }
+  function run(){
+    var info=routeInfo();
+    applyMeta(info);applySchema(info);ensureH1(info);improveImages(info);improveAccess();addResourceLinks();addResourceHints();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+  var tries=0,iv=setInterval(function(){tries++;run();if(tries>=12)clearInterval(iv);},700);
+  try{var mo=new MutationObserver(function(){run();});mo.observe(document.documentElement,{childList:true,subtree:true});setTimeout(function(){try{mo.disconnect();}catch(e){}},12000);}catch(e){}
 }catch(e){}})();
 
 /* ==== Pay by Bank (ACH) via Moov — appended 2026-07-15T08:46:40Z ==== */
