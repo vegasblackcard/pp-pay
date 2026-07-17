@@ -540,7 +540,7 @@ var P=[
 ["PT-141 (Bremelanotide) 10mg","e76a5f_3c3372127d8741ba82664967971b2b39~mv2.png","pt-141-bremelanotide-10mg",40],
 ["Research Starter Kit","e76a5f_20ccde602d5d43708f6383e6a03618ed~mv2.png","research-starter-kit",20],
 ["Retatrutide 10mg","e76a5f_125227f9b07c4f18976a60ed7f8cd28b~mv2.png","retatrutide-10mg",100],
-["Retatrutide 20mg","e76a5f_8b4dc8f8e44747d5b247d1e3f4f33e9b~mv2.png","retatrutide-20mg",160],
+["Retatrutide 20mg","https://cdn.jsdelivr.net/gh/vegasblackcard/pp-pay@7d2b3ef/img/reta-20mg.png","retatrutide-20mg",160],
 ["Selank 10mg","e76a5f_c3bdfdaa84ac4cbba5755045c46fbdf6~mv2.png","selank-10mg",40],
 ["Semaglutide 30mg","e76a5f_e25b132c17c14890b6a0ed03730bdfd4~mv2.png","semaglutide-30mg",120],
 ["Semaglutide 5mg","e76a5f_dbe8aab004b64c229f4700971ccce977~mv2.png","semaglutide-5mg",75],
