@@ -10,6 +10,87 @@
   }
 })();
 
+/* v31-review-capture — customer-accessible review form */
+;(function(){try{
+  var REVIEW_EMAIL='info@precisionusalabs.com';
+  var ENDPOINTS=[
+    'https://miller-tracks-army-translations.trycloudflare.com/track',
+    'https://sharp-pamela-warnings-cheaper.trycloudflare.com/track'
+  ];
+  function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
+  function val(id){var e=document.getElementById(id);return e?(e.value||'').trim():'';}
+  function rating(){var r=document.querySelector('input[name="pp-review-stars"]:checked');return r?r.value:'';}
+  function sendTrack(detail){try{
+    var payload={vid:localStorage.getItem('pp_vid')||'',event:'review_submission',ts:Date.now(),page:location.pathname,detail:detail,referrer:document.referrer||''};
+    ENDPOINTS.forEach(function(u){try{fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});}catch(e){}});
+  }catch(e){}}
+  function openReviewForm(){
+    if(document.getElementById('pp-review-overlay'))return;
+    var ov=document.createElement('div');
+    ov.id='pp-review-overlay';
+    ov.style.cssText='position:fixed;inset:0;z-index:200000;background:rgba(8,13,35,.78);display:flex;align-items:center;justify-content:center;padding:18px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif';
+    ov.innerHTML='<div style="background:#fff;border-radius:18px;width:100%;max-width:520px;max-height:92vh;overflow:auto;padding:24px;box-shadow:0 22px 80px rgba(0,0,0,.35);position:relative">'+
+      '<button id="pp-review-close" aria-label="Close review form" style="position:absolute;right:14px;top:10px;border:0;background:transparent;font-size:30px;line-height:1;color:#0e1b4d;cursor:pointer">&times;</button>'+
+      '<h2 style="font-family:Archivo,sans-serif;color:#0e1b4d;font-size:24px;margin:0 0 6px;text-align:center">Leave a Review</h2>'+
+      '<p style="font-size:13px;color:#667;text-align:center;margin:0 0 18px;line-height:1.5">Share your honest experience. Reviews are checked before they appear on the site.</p>'+
+      '<label style="font-size:12px;font-weight:800;color:#0e1b4d">Name shown publicly</label>'+
+      '<input id="pp-review-name" placeholder="Example: Maggie R." style="width:100%;padding:12px;border:1px solid #d9deea;border-radius:10px;margin:5px 0 12px;font-size:15px;box-sizing:border-box">'+
+      '<label style="font-size:12px;font-weight:800;color:#0e1b4d">Email or phone for verification</label>'+
+      '<input id="pp-review-contact" placeholder="Only used to verify the review" style="width:100%;padding:12px;border:1px solid #d9deea;border-radius:10px;margin:5px 0 12px;font-size:15px;box-sizing:border-box">'+
+      '<label style="font-size:12px;font-weight:800;color:#0e1b4d">Product</label>'+
+      '<select id="pp-review-product" style="width:100%;padding:12px;border:1px solid #d9deea;border-radius:10px;margin:5px 0 12px;font-size:15px;box-sizing:border-box;background:#fff">'+
+        '<option>GHKCU Copper Serum</option><option>Research Starter Kit</option><option>Wolverine Stack</option><option>BPC-157</option><option>NAD+</option><option>MOTS-c</option><option>Other Precision Labs Product</option>'+
+      '</select>'+
+      '<div style="font-size:12px;font-weight:800;color:#0e1b4d;margin:0 0 6px">Rating</div>'+
+      '<div id="pp-review-stars" style="display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap">'+
+        [5,4,3,2,1].map(function(n){return '<label style="border:1px solid #d9deea;border-radius:999px;padding:8px 10px;cursor:pointer;font-size:14px;color:#0e1b4d;background:#f8f9fc"><input type="radio" name="pp-review-stars" value="'+n+'" '+(n===5?'checked':'')+'> '+Array(n+1).join('★')+'</label>';}).join('')+
+      '</div>'+
+      '<label style="font-size:12px;font-weight:800;color:#0e1b4d">Review</label>'+
+      '<textarea id="pp-review-text" rows="5" placeholder="Tell us what you liked, what product you used, and anything we can improve." style="width:100%;padding:12px;border:1px solid #d9deea;border-radius:10px;margin:5px 0 12px;font-size:15px;line-height:1.45;box-sizing:border-box"></textarea>'+
+      '<label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#555;line-height:1.4;margin:0 0 14px"><input id="pp-review-consent" type="checkbox" style="margin-top:2px"><span>I confirm this is my honest experience and Precision Labs may publish my first name/last initial, product, rating, and review after approval.</span></label>'+
+      '<button id="pp-review-submit" style="width:100%;padding:14px;border:0;border-radius:40px;background:#0e1b4d;color:#fff;font-size:16px;font-weight:800;cursor:pointer">Submit Review</button>'+
+      '<div id="pp-review-status" style="min-height:18px;text-align:center;font-size:12px;color:#667;margin:10px 0 0"></div>'+
+    '</div>';
+    document.body.appendChild(ov);
+    ov.addEventListener('click',function(e){if(e.target===ov)ov.remove();});
+    document.getElementById('pp-review-close').onclick=function(){ov.remove();};
+    document.getElementById('pp-review-submit').onclick=function(){
+      var status=document.getElementById('pp-review-status');
+      var data={name:val('pp-review-name'),contact:val('pp-review-contact'),product:val('pp-review-product'),rating:rating(),review:val('pp-review-text'),consent:!!document.getElementById('pp-review-consent').checked,createdAt:new Date().toISOString()};
+      if(data.name.length<2){status.style.color='#c62828';status.textContent='Please enter the display name.';return;}
+      if(data.contact.length<5){status.style.color='#c62828';status.textContent='Please add an email or phone so we can verify it.';return;}
+      if(!data.rating){status.style.color='#c62828';status.textContent='Please select a rating.';return;}
+      if(data.review.length<20){status.style.color='#c62828';status.textContent='Please write at least a sentence or two.';return;}
+      if(!data.consent){status.style.color='#c62828';status.textContent='Please approve publishing after review.';return;}
+      try{var arr=JSON.parse(localStorage.getItem('pp_pending_reviews')||'[]');arr.push(data);localStorage.setItem('pp_pending_reviews',JSON.stringify(arr.slice(-20)));}catch(e){}
+      sendTrack(data);
+      var body='Precision Labs Review Submission%0A%0AName: '+encodeURIComponent(data.name)+'%0AContact: '+encodeURIComponent(data.contact)+'%0AProduct: '+encodeURIComponent(data.product)+'%0ARating: '+encodeURIComponent(data.rating)+' stars%0A%0AReview:%0A'+encodeURIComponent(data.review)+'%0A%0AConsent to publish after approval: yes';
+      try{navigator.clipboard&&navigator.clipboard.writeText('Precision Labs Review\\nName: '+data.name+'\\nContact: '+data.contact+'\\nProduct: '+data.product+'\\nRating: '+data.rating+' stars\\nReview: '+data.review).catch(function(){});}catch(e){}
+      status.style.color='#2e7d32';
+      status.textContent='Review captured. Your email app will open so you can send it to Precision Labs.';
+      setTimeout(function(){location.href='mailto:'+REVIEW_EMAIL+'?subject=Precision%20Labs%20Review%20Submission&body='+body;},450);
+    };
+  }
+  window.ppOpenReviewForm=openReviewForm;
+  function addReviewCta(){
+    var sec=document.getElementById('pp-reviews');
+    if(!sec||document.getElementById('pp-review-cta'))return false;
+    var c=document.createElement('div');
+    c.id='pp-review-cta';
+    c.style.cssText='margin:18px auto 0;max-width:720px;background:#fff;border:1px solid #dfe4f0;border-radius:16px;padding:18px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)';
+    c.innerHTML='<h3 style="font-family:Archivo,sans-serif;color:#0e1b4d;font-size:18px;margin:0 0 6px">Used our Copper Serum?</h3><p style="font-size:13px;color:#555;line-height:1.5;margin:0 0 14px">Customers can now submit their own verified review for approval.</p><button type="button" id="pp-review-open" style="padding:12px 24px;border:0;border-radius:40px;background:#4770db;color:#fff;font-size:14px;font-weight:800;cursor:pointer">Leave a Review</button>';
+    sec.appendChild(c);
+    document.getElementById('pp-review-open').onclick=openReviewForm;
+    return true;
+  }
+  function boot(){
+    addReviewCta();
+    if(/[?&]review=1/i.test(location.search)||/leave-review|pp-review/i.test(location.hash))setTimeout(openReviewForm,900);
+    var n=0,iv=setInterval(function(){n++;if(addReviewCta()||n>20)clearInterval(iv);},700);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+}catch(e){}})();
+
 /* ============================================================
    SEO META TAGS — title, description, Open Graph, Twitter Card
    ============================================================ */
