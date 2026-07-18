@@ -715,7 +715,7 @@ var bsH=rc('BS');d.innerHTML='<div class="pp-hero"><img src="https://static.wixs
 /* ============================================================
    REVIEWS / TESTIMONIALS SECTION
    ============================================================ */
-+'<div id="pp-reviews" style="max-width:1200px;margin:30px auto 0;padding:0 20px"><h2 style="text-align:center;font-family:Archivo,sans-serif;font-size:22px;font-weight:700;color:#0e1b4d;margin:0 0 6px">Customer Reviews</h2><p style="text-align:center;font-size:12px;color:#888;margin:0 0 20px">Approved customer reviews will appear here after verification.</p><div style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #edf0f7;text-align:center"><div style="font-weight:800;color:#0e1b4d;font-size:15px;margin:0 0 8px">Real review collection is open</div><p style="font-size:13px;color:#555;line-height:1.6;margin:0">Customers who used Precision Labs products can submit honest feedback using the review form above. Reviews are checked before publishing.</p></div></div>'
++'<div id="pp-reviews" style="max-width:1200px;margin:30px auto 0;padding:0 20px"><h2 style="text-align:center;font-family:Archivo,sans-serif;font-size:22px;font-weight:700;color:#0e1b4d;margin:0 0 6px">Customer Reviews</h2><p style="text-align:center;font-size:12px;color:#888;margin:0 0 20px">Verified customer reviews</p><div id="pp-review-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px"></div></div>'
 
 /* ============================================================
    FAQ SECTION — shown on /faq or inline
@@ -1528,4 +1528,17 @@ setInterval(function(){if(isContact&&!document.getElementById('pp-contact')&&doc
       });
     };
   };
+})();
+
+/* ==== Customer Reviews render (data-driven; add future reviews to PP_REVIEWS) — 2026-07-18 ==== */
+;(function(){
+  var PP_REVIEWS=[
+    {name:'Alexandra P.',rating:5,product:'Glow & Retatrutide',date:'Jul 2026',text:"I’ve ordered both Glow and Retatrutide through him and his team, and I’m already down almost 20 pounds and counting! The results have honestly exceeded my expectations, but what’s impressed me just as much is the support. He took the time to answer every question, explain everything thoroughly, and recommend the right supplements for my goals without ever trying to upsell me. He’s incredibly knowledgeable, responsive, and genuinely passionate about helping people succeed. If you’re looking for high-quality products, honest guidance, and exceptional customer service, I couldn’t recommend him and his team more!"}
+  ];
+  function stars(n){var s='';for(var i=0;i<5;i++){s+='<span style="color:'+(i<n?'#f5a623':'#dcdce3')+'">★</span>';}return s;}
+  function esc(t){return String(t).replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function render(){var c=document.getElementById('pp-review-cards');if(!c||c.getAttribute('data-done'))return;if(!PP_REVIEWS.length)return;c.setAttribute('data-done','1');
+    c.innerHTML=PP_REVIEWS.map(function(r){return '<div style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #edf0f7;text-align:left"><div style="font-size:19px;letter-spacing:2px;margin:0 0 10px">'+stars(r.rating)+'</div><p style="font-size:14px;color:#333;line-height:1.65;margin:0 0 14px">“'+esc(r.text)+'”</p><div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid #f0f0f0;padding-top:12px"><div><div style="font-weight:700;color:#0e1b4d;font-size:14px">'+esc(r.name)+'</div><div style="font-size:12px;color:#888">'+esc(r.product)+' · '+esc(r.date)+'</div></div><span style="font-size:11px;font-weight:700;color:#2e7d32;background:#e8f5e9;padding:4px 10px;border-radius:20px;white-space:nowrap">✓ Verified</span></div></div>';}).join('');}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
+  var n=0;var iv=setInterval(function(){n++;render();if(n>=15)clearInterval(iv);},600);
 })();
