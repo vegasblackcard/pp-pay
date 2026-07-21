@@ -632,7 +632,7 @@ var P=[
 ["Thymosin Alpha-1 10mg","e76a5f_06be289fbaec41279797327974781b81~mv2.png","thymosin-alpha-1-10mg",50],
 ["Thymosin Alpha-1 5mg","e76a5f_a7e640c9a36d42299c9c0af080287887~mv2.png","thymosin-alpha-1-5mg",90],
 ["Tirzepatide 30mg","e76a5f_2453e0eb191643808c298b6fae046caf~mv2.png","tirzepatide-30mg",135],
-["Tirzepatide 60mg","e76a5f_716b1c4153b8495faad2d352c681fd18~mv2.png","tirzepatide-60mg",500],
+["Tirzepatide 60mg","e76a5f_716b1c4153b8495faad2d352c681fd18~mv2.png","tirzepatide-60mg",250],
 ["U-100 SYRINGES Pack of 100","e76a5f_77f6646e49fb4e2c87dcd173e168901d~mv2.jpg","u-100-syringes-pack-of-100",25],
 ["U-100 SYRINGES Pk of 10","e76a5f_77f6646e49fb4e2c87dcd173e168901d~mv2.jpg","u-100-syringes-pk-of-10",3],
 ["Wolverine Stack (BPC-157 10mg + TB500 10mg)","e76a5f_137e78c0ba544faba5e4e62cd33a8699~mv2.png","wolverine-stack-bpc-157-10mg-tb500-10mg",50],
