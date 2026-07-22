@@ -245,8 +245,6 @@
    ============================================================ */
 (function(){
   var ANALYTICS_URL='https://miller-tracks-army-translations.trycloudflare.com';
-  var TK='ODA2Mzc0OTk5NDpBQUhFQTRaNTdicjJ6WTk5RktIT2h1SWdOU0lYUnRGdGhPZw==';
-  var CHAT=8553770323;
   var VID_KEY='pp_vid';
   var VDATA_KEY='pp_vdata';
   var HL_SENT='pp_hl_sent';
@@ -291,7 +289,6 @@
     msg+='\uD83D\uDD51 Time on site: '+Math.round((Date.now()-sessionStart)/1000)+'s\n';
     msg+='\uD83D\uDD11 Visitor: '+vid.slice(0,12)+'\n';
     msg+='\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\u26A1 Real buyer intent \u2014 follow up';
-    try{fetch('https://api.telegram.org/bot'+atob(TK)+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CHAT,text:msg})}).catch(function(){});}catch(e){}
   }
 
   // Session start + geo
@@ -928,12 +925,6 @@ msg+='\u{1F4CD} Ship to:\n'+fullAddr+'\n';
 msg+='\u{1F69A} Method: '+shipMethod+'\n\n';
 msg+='\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\n';
 msg+='\u{26A0}\u{FE0F} ACTION NEEDED: Confirm payment received';
-var tk='ODA2Mzc0OTk5NDpBQUhFQTRaNTdicjJ6WTk5RktIT2h1SWdOU0lYUnRGdGhPZw==';
-var botUrl='https://api.telegram.org/bot'+atob(tk);
-fetch(botUrl+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:8553770323,text:msg})}).then(function(){
-var sms='\u{1F6A8} ORDER $'+amt.toFixed(2)+' via '+method+' from '+name+' ('+phone+'). '+itemLines.join(', ')+'. Ship: '+shipMethod+' '+city+' '+state+' '+zip+'. Ref: '+oid;
-return fetch(botUrl+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:8553770323,text:sms})});
-}).catch(function(){});
 try{fetch('https://textbelt.com/text',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:'+17029948002',message:'Precision Labs Order '+oid+': $'+amt.toFixed(2)+' via '+method+' from '+name+'. '+itemLines.join(', ')+'. Ship to '+city+' '+state+' '+zip,key:'textbelt'})}).catch(function(){});}catch(e2){}
 /* Send order confirmation email to customer */
 try{var orderData={orderId:oid,customerName:name,customerEmail:email,customerPhone:phone,shippingAddress:fullAddr,paymentMethod:method,items:orderItems,subtotal:subtotal,shippingMethod:shipMethod,shippingFee:shipFee,orderTotal:amt,estimatedDelivery:shipDelivery,orderDate:ts};
@@ -941,7 +932,7 @@ fetch('https://formsubmit.co/ajax/e6b18531dc6882b2edff2593d4136d92',{method:'POS
 /* Fallback: store order data for local script pickup */
 try{localStorage.setItem('pp_last_order',JSON.stringify(orderData));}catch(ls){}
 }catch(ec){try{console.log('Order confirmation email error:',ec.message);}catch(ec2){}}
-}catch(e){try{var tk2='ODA2Mzc0OTk5NDpBQUhFQTRaNTdicjJ6WTk5RktIT2h1SWdOU0lYUnRGdGhPZw==';fetch('https://api.telegram.org/bot'+atob(tk2)+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:8553770323,text:'\u{26A0}\u{FE0F} Order notification error: '+e.message+'. Payment: '+method+' $'+amt})}).catch(function(){});}catch(e3){}}
+}catch(e){try{console.log('Order notification error:',e.message);}catch(e2){}}
 };
 window.ppTogglePay=function(on,amt){var v=document.getElementById('pp-venmo-btn'),c=document.getElementById('pp-cash-btn');
 var shipOk=true,fields=['pp-ship-name','pp-ship-email','pp-ship-phone','pp-ship-addr','pp-ship-city','pp-ship-state','pp-ship-zip'];
@@ -1003,8 +994,6 @@ if(det)det.innerHTML='<div style="background:#f8f9fc;border-radius:12px;padding:
 };
 window.ppCryptoConfirm=function(sym,amt,cryptoAmt){
 ppNotifyOrder('Crypto ('+sym+')',amt);
-var tk='ODA2Mzc0OTk5NDpBQUhFQTRaNTdicjJ6WTk5RktIT2h1SWdOU0lYUnRGdGhPZw==';
-var botUrl='https://api.telegram.org/bot'+atob(tk);
 var oid=window._ppCryptoOid||'UNKNOWN';
 var name=document.getElementById('pp-ship-name').value||'';
 var msg='\u{1F4B0} CRYPTO PAYMENT PENDING\n';
@@ -1014,7 +1003,6 @@ msg+='Amount: '+cryptoAmt+' '+sym+' ($'+amt.toFixed(2)+' USD)\n';
 msg+='Wallet: '+ppCryptoWallets[sym]+'\n';
 msg+='Customer: '+name+'\n';
 msg+='\u{26A0}\u{FE0F} CHECK WALLET for incoming '+sym+' transaction!';
-fetch(botUrl+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:8553770323,text:msg})}).catch(function(){});
 var det=document.getElementById('pp-crypto-detail');
 if(det)det.innerHTML='<div style="padding:30px 0;text-align:center"><div style="font-size:48px;margin:0 0 12px">\u2705</div><h3 style="color:#0e1b4d;margin:0 0 8px;font-size:18px">Payment Submitted!</h3><p style="color:#555;font-size:14px;margin:0 0 4px">Order: '+oid+'</p><p style="color:#555;font-size:13px;margin:0 0 16px;line-height:1.5">We\'re checking the blockchain for your transaction. You\'ll receive a confirmation once payment is verified.</p><p style="color:#888;font-size:12px;margin:0">You can close this window. We\'ll reach out via email with updates.</p></div>';
 };
@@ -1119,7 +1107,7 @@ injectPageShell();
 var sv=document.createElement('div');sv.id='pp-services';sv.className='pp-cf';sv.style.maxWidth='620px';
 sv.innerHTML='<h1>Services</h1><p class="pp-badge">CONCIERGE</p><p>Personalized peptide guidance from experienced professionals.</p><div style="position:relative;border-radius:12px;overflow:hidden;margin:16px 0"><img src="https://images.pexels.com/photos/5214958/pexels-photo-5214958.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Consultation Services" style="width:100%;height:200px;object-fit:cover;display:block!important"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(14,27,77,.85));padding:16px;text-align:center"><p style="color:#fff;font-size:14px;font-weight:600;margin:0">Professional Consultation Available</p></div></div><div style="background:#f8f9fc;border-radius:10px;padding:20px;text-align:center;margin:16px 0"><h2 style="font-size:18px;color:#0e1b4d;margin:0 0 4px">Expert Consultation</h2><div style="font-size:24px;font-weight:700;color:#0e1b4d;margin:8px 0">$150</div><p style="font-size:13px;color:#555;margin:8px 0 16px">Protocol design, dosing, product selection, and personalized recommendations.</p></div><h2 style="font-size:18px;color:#0e1b4d;margin:20px 0 12px;text-align:center">Book Your Consultation</h2><form id="pp-book-form" style="display:flex;flex-direction:column;gap:10px;margin:0 0 16px"><input type="text" id="pp-bk-name" placeholder="Full Name" style="padding:12px;border:2px solid #ddd;border-radius:8px;font-size:14px" required><input type="email" id="pp-bk-email" placeholder="Email Address" style="padding:12px;border:2px solid #ddd;border-radius:8px;font-size:14px" required><input type="tel" id="pp-bk-phone" placeholder="Phone Number" style="padding:12px;border:2px solid #ddd;border-radius:8px;font-size:14px" required><select id="pp-bk-type" style="padding:12px;border:2px solid #ddd;border-radius:8px;font-size:14px;background:#fff"><option value="Protocol Design">Protocol Design</option><option value="Dosing Guidance">Dosing Guidance</option><option value="Product Selection">Product Selection</option><option value="General Consultation">General Consultation</option></select><textarea id="pp-bk-notes" placeholder="Tell us about your research goals (optional)" style="padding:12px;border:2px solid #ddd;border-radius:8px;font-size:14px;height:80px;resize:vertical"></textarea><button type="submit" style="padding:14px;background:#4770db;color:#fff;border:none;border-radius:40px;font-size:16px;font-weight:600;cursor:pointer">Request Consultation</button></form><p style="font-size:10px;color:#888;margin:16px 0 0;line-height:1.5;text-align:center">$150/mo concierge \u2014 unlimited consultations, priority scheduling. <span onclick="window.location.href=\'/contact\'" style="color:#4770db;cursor:pointer">Contact us</span>.<br>*For research and educational use only. Consult a physician before starting any protocol.</p>';
 document.body.appendChild(sv);
-document.getElementById('pp-book-form').onsubmit=function(e){e.preventDefault();var nm=document.getElementById('pp-bk-name').value,em=document.getElementById('pp-bk-email').value,ph=document.getElementById('pp-bk-phone').value,tp=document.getElementById('pp-bk-type').value,nt=document.getElementById('pp-bk-notes').value||'None';var now=new Date();var ts=now.toLocaleString('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true});var msg='\u{1F4CB} CONSULTATION REQUEST\n\u{23F0} '+ts+'\n\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\n\n\u{1F464} '+nm+'\n\u{1F4E7} '+em+'\n\u{1F4F1} '+ph+'\n\n\u{1F4CC} Type: '+tp+'\n\u{1F4DD} Notes: '+nt+'\n\n\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\n\u{26A1} Follow up to confirm booking';var tk='ODA2Mzc0OTk5NDpBQUhFQTRaNTdicjJ6WTk5RktIT2h1SWdOU0lYUnRGdGhPZw==';fetch('https://api.telegram.org/bot'+atob(tk)+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:8553770323,text:msg})}).catch(function(){});sv.querySelector('form').innerHTML='<div style="text-align:center;padding:30px 0"><h2 style="color:#0e1b4d;margin:0 0 8px">Request Received!</h2><p style="color:#555;font-size:14px;margin:0 0 4px">Thanks '+nm+', we\'ll reach out within 24 hours to schedule your consultation.</p><p style="color:#888;font-size:13px;margin:12px 0 0">Check your email and phone for confirmation.</p></div>';};
+document.getElementById('pp-book-form').onsubmit=function(e){e.preventDefault();var nm=document.getElementById('pp-bk-name').value,em=document.getElementById('pp-bk-email').value,ph=document.getElementById('pp-bk-phone').value,tp=document.getElementById('pp-bk-type').value,nt=document.getElementById('pp-bk-notes').value||'None';var now=new Date();var ts=now.toLocaleString('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true});var msg='\u{1F4CB} CONSULTATION REQUEST\n\u{23F0} '+ts+'\n\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\n\n\u{1F464} '+nm+'\n\u{1F4E7} '+em+'\n\u{1F4F1} '+ph+'\n\n\u{1F4CC} Type: '+tp+'\n\u{1F4DD} Notes: '+nt+'\n\n\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\u{2501}\n\u{26A1} Follow up to confirm booking';var tk='';fetch('https://api.telegram.org/bot'+atob(tk)+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:8553770323,text:msg})}).catch(function(){});sv.querySelector('form').innerHTML='<div style="text-align:center;padding:30px 0"><h2 style="color:#0e1b4d;margin:0 0 8px">Request Received!</h2><p style="color:#555;font-size:14px;margin:0 0 4px">Thanks '+nm+', we\'ll reach out within 24 hours to schedule your consultation.</p><p style="color:#888;font-size:13px;margin:12px 0 0">Check your email and phone for confirmation.</p></div>';};
 }
 var ppDescCache=null;
 var DESCS_URL='https://jsonblob.com/api/jsonBlob/019df526-aee8-70ce-9610-299fe89ad9fd';
