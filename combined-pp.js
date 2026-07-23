@@ -156,22 +156,20 @@
     if(document.getElementById('pp-age-gate'))return;
     var gate=document.createElement('div');
     gate.id='pp-age-gate';
-    gate.innerHTML='<div id="pp-av-box"><span class="pp-av-brand">Precision Labs</span><div class="pp-av-line"></div><h1>Research Products</h1><p><strong>Verify to Enter</strong> \u2014 You must be 21 or older. Products are for laboratory research only.</p><label id="pp-lg-age-label" style="display:flex;align-items:flex-start;gap:8px;text-align:left;font-size:13px;color:#333;margin:0 0 16px;line-height:1.4"><input id="pp-lg-age" type="checkbox" style="margin-top:2px;flex-shrink:0"><span>I confirm I am 21 or older.</span></label><details style="text-align:left;margin:0 0 16px"><summary style="cursor:pointer;font-size:13px;color:#4770db">Optional updates</summary><div style="padding-top:12px"><input id="pp-lg-name" type="text" placeholder="Name (optional)" autocomplete="name" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin:0 0 10px;box-sizing:border-box"><input id="pp-lg-phone" type="tel" placeholder="Phone (optional)" autocomplete="tel" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin:0 0 10px;box-sizing:border-box"><input id="pp-lg-email" type="email" placeholder="Email (optional)" autocomplete="email" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin:0 0 12px;box-sizing:border-box"><label id="pp-lg-clabel" style="display:flex;align-items:flex-start;gap:8px;text-align:left;font-size:12px;color:#555;line-height:1.4"><input id="pp-lg-consent" type="checkbox" style="margin-top:2px;flex-shrink:0"><span>Send me optional marketing updates. Msg &amp; data rates may apply. Reply STOP to opt out.</span></label></div></details><button id="pp-av-enter">Enter Site</button><button id="pp-av-exit">I am under 21 \u2014 Exit</button></div>';
+    gate.innerHTML='<div id="pp-av-box"><span class="pp-av-brand">Precision Labs</span><div class="pp-av-line"></div><h1>Research Products</h1><p><strong>Verify to Enter</strong> \u2014 You must be 21 or older. Products are for laboratory research only.</p><input id="pp-lg-first" type="text" placeholder="First name" autocomplete="given-name" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin:0 0 10px;box-sizing:border-box"><input id="pp-lg-last" type="text" placeholder="Last name" autocomplete="family-name" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin:0 0 10px;box-sizing:border-box"><input id="pp-lg-email" type="email" placeholder="Email" autocomplete="email" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin:0 0 12px;box-sizing:border-box"><label id="pp-lg-age-label" style="display:flex;align-items:flex-start;gap:8px;text-align:left;font-size:13px;color:#333;margin:0 0 8px;line-height:1.4"><input id="pp-lg-age" type="checkbox" style="margin-top:2px;flex-shrink:0"><span>I confirm I am 21 or older.</span></label><label id="pp-lg-clabel" style="display:flex;align-items:flex-start;gap:8px;text-align:left;font-size:12px;color:#555;margin:0 0 4px;line-height:1.4"><input id="pp-lg-consent" type="checkbox" style="margin-top:2px;flex-shrink:0"><span>Send me optional updates. Msg &amp; data rates may apply. Reply STOP to opt out.</span></label><button id="pp-av-enter">Enter Site</button><button id="pp-av-exit">I am under 21 \u2014 Exit</button></div>';
     (document.body||document.documentElement).appendChild(gate);
     document.getElementById('pp-av-enter').onclick=function(){
-      var nm=(document.getElementById('pp-lg-name').value||'').trim();
-      var ph=(document.getElementById('pp-lg-phone').value||'').replace(/[^0-9]/g,'');
+      var fn=(document.getElementById('pp-lg-first').value||'').trim();
+      var ln=(document.getElementById('pp-lg-last').value||'').trim();
       var em=(document.getElementById('pp-lg-email').value||'').trim();
       var consent=document.getElementById('pp-lg-consent').checked;
       var age=document.getElementById('pp-lg-age').checked;
+      if(!fn||!ln){document.getElementById('pp-lg-first').style.border='2px solid #c62828';document.getElementById('pp-lg-last').style.border='2px solid #c62828';return;}
+      if(em.indexOf('@')<1){document.getElementById('pp-lg-email').style.border='2px solid #c62828';return;}
       if(!age){document.getElementById('pp-lg-age-label').style.color='#c62828';return;}
-      if(consent&&(em.indexOf('@')<1||ph.length<10)){document.getElementById('pp-lg-clabel').style.color='#c62828';return;}
-      if(consent){
-        var lead={name:nm,phone:ph,email:em,consent:true,source:'entry-gate',ts:Date.now(),page:location.pathname};
-        try{localStorage.setItem('pp_lead',JSON.stringify(lead));}catch(e){}
-        try{var x=new XMLHttpRequest();x.open('POST','https://pin-travelers-parcel-authentication.trycloudflare.com/track',true);x.setRequestHeader('Content-Type','application/json');x.send(JSON.stringify({vid:(localStorage.getItem('pp_vid')||''),event:'lead_capture',detail:lead,ts:Date.now(),page:location.pathname}));}catch(e){}
-      }
-      /* lead stored locally in pp_lead; CRM capture handled by native Wix form (see audit) */
+      var lead={name:fn+' '+ln,first:fn,last:ln,email:em,consent:consent,age21:true,source:'entry-gate',ts:Date.now(),page:location.pathname};
+      try{localStorage.setItem('pp_lead',JSON.stringify(lead));}catch(e){}
+      try{var x=new XMLHttpRequest();x.open('POST','https://pin-travelers-parcel-authentication.trycloudflare.com/track',true);x.setRequestHeader('Content-Type','application/json');x.send(JSON.stringify({vid:(localStorage.getItem('pp_vid')||''),event:'lead_capture',detail:lead,ts:Date.now(),page:location.pathname}));}catch(e){}
       localStorage.setItem(AV_KEY,String(Date.now()));
       gate.remove();
       var avs=document.getElementById('pp-av-style');if(avs)avs.remove();
