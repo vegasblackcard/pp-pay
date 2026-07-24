@@ -94,11 +94,7 @@
    ============================================================ */
 (function(){
   var _isHome=(function(){var p=location.pathname.replace(/\/+$/,'');return p===''||p==='/'||p==='/home';})();
-  if(_isHome){
-  var t=document.querySelector('title');
-  if(t)t.textContent='Precision Labs | Research Peptides & Lab Documentation';
-  else{var nt=document.createElement('title');nt.textContent='Precision Labs | Research Peptides & Lab Documentation';document.head.appendChild(nt);}
-  }
+  var SEO_TITLE='Precision Labs | Research Peptides & Lab Documentation';
   var metas=[
     ['description','Explore Precision Labs research products, third-party testing documentation, certificates of analysis, and research-use resources.'],
     ['keywords','research peptides, buy peptides online, BPC-157, TB-500, Semaglutide, Retatrutide, peptides USA, veteran owned peptides, third party tested peptides, 99 purity peptides, Precision Labs, NAD+, GHK-Cu, Ipamorelin, Tirzepatide, peptide supplier, research chemicals, lyophilized peptides, peptide store'],
@@ -117,15 +113,26 @@
     ['twitter:description','Explore Precision Labs research products, third-party testing documentation, certificates of analysis, and research-use resources.'],
     ['twitter:image','https://static.wixstatic.com/media/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png/v1/fill/w_1200,h_630,al_c,q_85,enc_auto/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png']
   ];
-  metas.forEach(function(m){
-    var attr=m[0].startsWith('og:')?'property':'name';
-    var sel='meta['+attr+'="'+m[0]+'"]';
-    var found=document.querySelectorAll(sel);
-    var el=found[0];
-    if(!el){el=document.createElement('meta');el.setAttribute(attr,m[0]);document.head.appendChild(el);}
-    el.setAttribute('content',m[1]);
-    for(var i=1;i<found.length;i++)found[i].remove();
-  });
+  function applySeoMeta(){
+    if(_isHome){
+      var t=document.querySelector('title');
+      if(t)t.textContent=SEO_TITLE;
+      else{var nt=document.createElement('title');nt.textContent=SEO_TITLE;document.head.appendChild(nt);}
+    }
+    metas.forEach(function(m){
+      var attr=m[0].startsWith('og:')?'property':'name';
+      var sel='meta['+attr+'="'+m[0]+'"]';
+      var found=document.querySelectorAll(sel);
+      var el=found[0];
+      if(!el){el=document.createElement('meta');el.setAttribute(attr,m[0]);document.head.appendChild(el);}
+      el.setAttribute('content',m[1]);
+      for(var i=1;i<found.length;i++)found[i].remove();
+    });
+  }
+  applySeoMeta();
+  setTimeout(applySeoMeta,500);
+  setTimeout(applySeoMeta,2000);
+  setTimeout(applySeoMeta,6000);
 })();
 
 /* ============================================================
