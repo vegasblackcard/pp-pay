@@ -1,6 +1,22 @@
 
 (function(){
 
+/* Start the homepage hero request before the storefront DOM is assembled. */
+;(function(){try{
+  var origin=document.createElement('link');
+  origin.rel='preconnect';
+  origin.href='https://cdn.jsdelivr.net';
+  origin.crossOrigin='anonymous';
+  document.head.appendChild(origin);
+  var hero=document.createElement('link');
+  hero.rel='preload';
+  hero.as='image';
+  hero.href='https://cdn.jsdelivr.net/gh/vegasblackcard/pp-pay@e028441/assets/hero/precision-hero-720.webp';
+  hero.setAttribute('imagesrcset','https://cdn.jsdelivr.net/gh/vegasblackcard/pp-pay@e028441/assets/hero/precision-hero-480.webp 480w, https://cdn.jsdelivr.net/gh/vegasblackcard/pp-pay@e028441/assets/hero/precision-hero-720.webp 720w, https://cdn.jsdelivr.net/gh/vegasblackcard/pp-pay@e028441/assets/hero/precision-hero-1080.webp 1080w');
+  hero.setAttribute('imagesizes','100vw');
+  document.head.appendChild(hero);
+}catch(e){}})();
+
 /* ============================================================
    GOOGLE SEARCH CONSOLE VERIFICATION + BING WEBMASTER TOOLS
    ============================================================ */
@@ -216,16 +232,19 @@
   var GA_ID='G-3CJLDN3EK8';
   if(window.__ppGa4Initialized)return;
   window.__ppGa4Initialized=true;
-  var gs=document.createElement('script');
-  if(!document.querySelector('script[data-pp-ga4]')){
-    gs.async=true;gs.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;gs.setAttribute('data-pp-ga4',GA_ID);
-    document.head.appendChild(gs);
-  }
   window.dataLayer=window.dataLayer||[];
   function gtag(){dataLayer.push(arguments);}
   window.gtag=gtag;
   gtag('js',new Date());
   gtag('config',GA_ID);
+  function loadGa(){
+    if(document.querySelector('script[data-pp-ga4]'))return;
+    var gs=document.createElement('script');
+    gs.async=true;gs.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;gs.setAttribute('data-pp-ga4',GA_ID);
+    document.head.appendChild(gs);
+  }
+  if(document.readyState==='complete')setTimeout(loadGa,1500);
+  else window.addEventListener('load',function(){setTimeout(loadGa,1500);},{once:true});
 })();
 
 /* ============================================================
@@ -283,7 +302,7 @@
     if(vd.events.length>500)vd.events=vd.events.slice(-500);vd.lastSeen=payload.ts;saveVData(vd);
   }
 
-  function fetchGeo(){try{var x=new XMLHttpRequest();x.open('GET','http://ip-api.com/json/?fields=status,country,regionName,city,zip,lat,lon,timezone,isp,query',true);x.timeout=5000;x.onload=function(){try{var d=JSON.parse(x.responseText);if(d.status==='success'){geoData={ip:d.query,country:d.country,regionName:d.regionName,city:d.city,zip:d.zip,lat:d.lat,lon:d.lon,timezone:d.timezone,isp:d.isp};track('geo_update',geoData);}}catch(e){}};x.send();}catch(e){}}
+  function fetchGeo(){try{var x=new XMLHttpRequest();x.open('GET','https://ipapi.co/json/',true);x.timeout=5000;x.onload=function(){try{var d=JSON.parse(x.responseText);if(d&&d.ip){geoData={ip:d.ip,country:d.country_name,regionName:d.region,city:d.city,zip:d.postal,lat:d.latitude,lon:d.longitude,timezone:d.timezone,isp:d.org};track('geo_update',geoData);}}catch(e){}};x.send();}catch(e){}}
 
   function alreadySent(reason){var sent=[];try{sent=JSON.parse(localStorage.getItem(HL_SENT))||[];}catch(e){}var today=new Date().toISOString().slice(0,10);var key=today+'_'+reason;if(sent.indexOf(key)>-1)return true;sent.push(key);localStorage.setItem(HL_SENT,JSON.stringify(sent));return false;}
 
@@ -305,10 +324,13 @@
     msg+='\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\u26A1 Real buyer intent \u2014 follow up';
   }
 
-  // Session start + geo
-  if(isNewSession){track('session_start');fetchGeo();}
-  // Page view
-  track('page_view',location.pathname);
+  // Preserve analytics without competing with critical rendering.
+  function startTelemetry(){
+    if(isNewSession){track('session_start');fetchGeo();}
+    track('page_view',location.pathname);
+  }
+  if('requestIdleCallback'in window)requestIdleCallback(startTelemetry,{timeout:5000});
+  else setTimeout(startTelemetry,3500);
 
   // Product view tracking (patches ppDetail)
   function patchDetail(){
@@ -1056,7 +1078,11 @@ if(window.ppDetail)ppDetail(slug);
 });
 document.addEventListener('click',function(e){if(!dd.contains(e.target)&&e.target!==si)dd.style.display='none';});
 }
-setInterval(ppInitAC,2000);
+ppInitAC();
+var ppAcAttempts=0,ppAcTimer=setInterval(function(){
+ppAcAttempts++;ppInitAC();
+if(document.getElementById('pp-si')||ppAcAttempts>=20)clearInterval(ppAcTimer);
+},250);
 window.ppCatDesc={
 BS:'Our highest-demand research peptides, chosen for clinical interest and verified purity. Every compound is third-party tested and backed by published research.',
 AP:'Peptides designed to support strength, endurance, and recovery. Research has explored their roles in lean mass maintenance, cellular repair, and performance resilience.',
@@ -1359,8 +1385,11 @@ h+='<p style="margin-top:20px;text-align:center"><span onclick="window.location.
 fq.innerHTML=h;document.body.appendChild(fq);}
 
 function initAll(){if(isContact)initContact();if(isAbout)initAbout();if(isServices)initServices();if(isLabTesting)initLabTesting();if(isCart)initCartPage();if(isBlog)initBlog();if(isTerms)initTerms();if(isFAQ)initFAQ();if(isDisclaimer)initDisclaimer();if(isResearch)initResearch();if(isHome)initModal();injectFooter();}
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(initAll,3500);});}else{setTimeout(initAll,3500);}
-setInterval(function(){if(isContact&&!document.getElementById('pp-contact')&&document.body)initContact();if(isAbout&&!document.getElementById('pp-about')&&document.body)initAbout();if(isServices&&!document.getElementById('pp-services')&&document.body)initServices();if(isHome&&!document.getElementById('pp-modal')&&document.body)initModal();if(isCart&&!document.getElementById('pp-cart-page')&&document.body)initCartPage();if(isBlog&&!document.getElementById('pp-blog')&&document.body)initBlog();if(isTerms&&!document.getElementById('pp-terms')&&document.body)initTerms();if(isFAQ&&!document.getElementById('pp-faq')&&document.body)initFAQ();if(isDisclaimer&&!document.getElementById('pp-disclaimer')&&document.body)initDisclaimer();if(isResearch&&!document.getElementById('pp-research')&&document.body)initResearch();if(isLabTesting&&!document.getElementById('pp-lab-testing')&&document.body)initLabTesting();},2500);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAll,{once:true});else initAll();
+var ppShellAttempts=0,ppShellTimer=setInterval(function(){
+ppShellAttempts++;initAll();
+if(ppShellAttempts>=12)clearInterval(ppShellTimer);
+},250);
 })();
 
 /* v5 1776382014 */
