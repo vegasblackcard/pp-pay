@@ -96,15 +96,15 @@
   var _isHome=(function(){var p=location.pathname.replace(/\/+$/,'');return p===''||p==='/'||p==='/home';})();
   if(_isHome){
   var t=document.querySelector('title');
-  if(t)t.textContent='Research Peptides USA | BPC-157, TB-500, Semaglutide | Precision Labs';
-  else{var nt=document.createElement('title');nt.textContent='Research Peptides USA | BPC-157, TB-500, Semaglutide | Precision Labs';document.head.appendChild(nt);}
+  if(t)t.textContent='Precision Labs | Research Peptides & Lab Documentation';
+  else{var nt=document.createElement('title');nt.textContent='Precision Labs | Research Peptides & Lab Documentation';document.head.appendChild(nt);}
   }
   var metas=[
-    ['description','Buy premium research peptides from Precision Labs — veteran-owned, third-party lab tested, 99%+ purity guaranteed. BPC-157, TB-500, Semaglutide, Retatrutide, NAD+, GHK-Cu & 80+ peptides. Free shipping over $300. COA available on request.'],
+    ['description','Explore Precision Labs research products, third-party testing documentation, certificates of analysis, and research-use resources.'],
     ['keywords','research peptides, buy peptides online, BPC-157, TB-500, Semaglutide, Retatrutide, peptides USA, veteran owned peptides, third party tested peptides, 99 purity peptides, Precision Labs, NAD+, GHK-Cu, Ipamorelin, Tirzepatide, peptide supplier, research chemicals, lyophilized peptides, peptide store'],
     ['robots','index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'],
-    ['og:title','Research Peptides USA | Precision Labs — Veteran-Owned, Lab Tested'],
-    ['og:description','Premium research peptides: BPC-157, TB-500, Semaglutide, Retatrutide & 80+ more. Veteran-owned, third-party tested, 99%+ purity. Free shipping over $300.'],
+    ['og:title','Precision Labs | Research Peptides & Lab Documentation'],
+    ['og:description','Explore Precision Labs research products, third-party testing documentation, certificates of analysis, and research-use resources.'],
     ['og:url','https://www.precisionusalabs.com'],
     ['og:type','website'],
     ['og:site_name','Precision Labs'],
@@ -113,19 +113,18 @@
     ['og:image:height','630'],
     ['og:locale','en_US'],
     ['twitter:card','summary_large_image'],
-    ['twitter:title','Precision Labs | Research Peptides USA — Veteran-Owned'],
-    ['twitter:description','Premium research peptides with 99%+ purity. BPC-157, TB-500, Semaglutide & 80+ peptides. Third-party lab tested, 99%+ purity. Free shipping over $300.'],
+    ['twitter:title','Precision Labs | Research Peptides & Lab Documentation'],
+    ['twitter:description','Explore Precision Labs research products, third-party testing documentation, certificates of analysis, and research-use resources.'],
     ['twitter:image','https://static.wixstatic.com/media/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png/v1/fill/w_1200,h_630,al_c,q_85,enc_auto/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png']
   ];
   metas.forEach(function(m){
-    var sel=m[0].startsWith('og:')||m[0].startsWith('twitter:')?'meta[property="'+m[0]+'"]':'meta[name="'+m[0]+'"]';
-    if(!document.querySelector(sel)){
-      var el=document.createElement('meta');
-      if(m[0].startsWith('og:')||m[0].startsWith('twitter:'))el.setAttribute('property',m[0]);
-      else el.setAttribute('name',m[0]);
-      el.setAttribute('content',m[1]);
-      document.head.appendChild(el);
-    }
+    var attr=m[0].startsWith('og:')?'property':'name';
+    var sel='meta['+attr+'="'+m[0]+'"]';
+    var found=document.querySelectorAll(sel);
+    var el=found[0];
+    if(!el){el=document.createElement('meta');el.setAttribute(attr,m[0]);document.head.appendChild(el);}
+    el.setAttribute('content',m[1]);
+    for(var i=1;i<found.length;i++)found[i].remove();
   });
 })();
 
