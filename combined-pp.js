@@ -13,16 +13,14 @@
 /* v31-review-capture — customer-accessible review form */
 ;(function(){try{
   var REVIEW_EMAIL='bennie@vegasblackcard.com';
-  var ENDPOINTS=[
-    'https://pin-travelers-parcel-authentication.trycloudflare.com/track',
-    'https://pin-travelers-parcel-authentication.trycloudflare.com/track'
-  ];
+  var REVIEW_ENDPOINT='https://pin-travelers-parcel-authentication.trycloudflare.com/track';
   function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
   function val(id){var e=document.getElementById(id);return e?(e.value||'').trim():'';}
   function rating(){var r=document.querySelector('input[name="pp-review-stars"]:checked');return r?r.value:'';}
   function sendTrack(detail){try{
-    var payload={vid:localStorage.getItem('pp_vid')||'',event:'review_submission',ts:Date.now(),page:location.pathname,detail:detail,referrer:document.referrer||''};
-    ENDPOINTS.forEach(function(u){try{fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});}catch(e){}});
+    var now=Date.now();
+    var payload={vid:localStorage.getItem('pp_vid')||'',event:'review_submission',eventId:'review_'+now+'_'+Math.random().toString(36).slice(2,10),ts:now,page:location.pathname,detail:detail,referrer:document.referrer||''};
+    fetch(REVIEW_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});
   }catch(e){}}
   function openReviewForm(){
     if(document.getElementById('pp-review-overlay'))return;
@@ -103,7 +101,7 @@
   }
   var metas=[
     ['description','Buy premium research peptides from Precision Labs — veteran-owned, third-party lab tested, 99%+ purity guaranteed. BPC-157, TB-500, Semaglutide, Retatrutide, NAD+, GHK-Cu & 80+ peptides. Free shipping over $300. COA available on request.'],
-    ['keywords','research peptides, buy peptides online, BPC-157, TB-500, Semaglutide, Retatrutide, peptides USA, veteran owned peptides, third party tested peptides, 99 purity peptides, Precision Labs, Precision Labs, NAD+, GHK-Cu, Ipamorelin, Tirzepatide, peptide supplier, research chemicals, lyophilized peptides, peptide store'],
+    ['keywords','research peptides, buy peptides online, BPC-157, TB-500, Semaglutide, Retatrutide, peptides USA, veteran owned peptides, third party tested peptides, 99 purity peptides, Precision Labs, NAD+, GHK-Cu, Ipamorelin, Tirzepatide, peptide supplier, research chemicals, lyophilized peptides, peptide store'],
     ['robots','index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'],
     ['og:title','Research Peptides USA | Precision Labs — Veteran-Owned, Lab Tested'],
     ['og:description','Premium research peptides: BPC-157, TB-500, Semaglutide, Retatrutide & 80+ more. Veteran-owned, third-party tested, 99%+ purity. Free shipping over $300.'],
@@ -117,8 +115,7 @@
     ['twitter:card','summary_large_image'],
     ['twitter:title','Precision Labs | Research Peptides USA — Veteran-Owned'],
     ['twitter:description','Premium research peptides with 99%+ purity. BPC-157, TB-500, Semaglutide & 80+ peptides. Third-party lab tested, 99%+ purity. Free shipping over $300.'],
-    ['twitter:image','https://static.wixstatic.com/media/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png/v1/fill/w_1200,h_630,al_c,q_85,enc_auto/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png'],
-    ['twitter:description','BPC-157, TB-500, Semaglutide, Retatrutide & more. Veteran-owned, third-party tested peptide research products.']
+    ['twitter:image','https://static.wixstatic.com/media/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png/v1/fill/w_1200,h_630,al_c,q_85,enc_auto/e76a5f_398beccf075b4f0c93d26b2a6ae2c997~mv2.png']
   ];
   metas.forEach(function(m){
     var sel=m[0].startsWith('og:')||m[0].startsWith('twitter:')?'meta[property="'+m[0]+'"]':'meta[name="'+m[0]+'"]';
@@ -207,13 +204,17 @@
 })();
 
 /* ============================================================
-   GOOGLE ANALYTICS (GA4) — replace G-3CJLDN3EK8 with real ID
+   GOOGLE ANALYTICS (GA4)
    ============================================================ */
 (function(){
   var GA_ID='G-3CJLDN3EK8';
+  if(window.__ppGa4Initialized)return;
+  window.__ppGa4Initialized=true;
   var gs=document.createElement('script');
-  gs.async=true;gs.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
-  document.head.appendChild(gs);
+  if(!document.querySelector('script[data-pp-ga4]')){
+    gs.async=true;gs.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;gs.setAttribute('data-pp-ga4',GA_ID);
+    document.head.appendChild(gs);
+  }
   window.dataLayer=window.dataLayer||[];
   function gtag(){dataLayer.push(arguments);}
   window.gtag=gtag;
@@ -222,10 +223,11 @@
 })();
 
 /* ============================================================
-   FACEBOOK PIXEL — replace XXXXXXXXXX with real Pixel ID
+   FACEBOOK PIXEL — disabled until configured
    ============================================================ */
 (function(){
   var FB_ID='XXXXXXXXXX';
+  if(!FB_ID||FB_ID==='XXXXXXXXXX')return;
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
   n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -243,6 +245,13 @@
    ============================================================ */
 (function(){
   var ANALYTICS_URL='https://pin-travelers-parcel-authentication.trycloudflare.com';
+  var INTERNAL_KEY='pp_internal_traffic';
+  try{
+    var internalParam=new URLSearchParams(location.search).get('pp_internal');
+    if(internalParam==='1')localStorage.setItem(INTERNAL_KEY,'1');
+    if(internalParam==='0')localStorage.removeItem(INTERNAL_KEY);
+    if(localStorage.getItem(INTERNAL_KEY)==='1')return;
+  }catch(e){}
   var VID_KEY='pp_vid';
   var VDATA_KEY='pp_vdata';
   var HL_SENT='pp_hl_sent';
@@ -261,7 +270,8 @@
   localStorage.setItem(SESSION_KEY,String(Date.now()));
 
   function track(event,detail){
-    var payload={vid:vid,event:event,ts:Date.now(),page:location.pathname,detail:detail||null,referrer:document.referrer||'',device:device,browser:browser,os:os,location:geoData};
+    var now=Date.now();
+    var payload={vid:vid,event:event,eventId:vid+'_'+event+'_'+now+'_'+Math.random().toString(36).slice(2,8),ts:now,page:location.pathname,detail:detail||null,referrer:document.referrer||'',device:device,browser:browser,os:os,location:geoData};
     try{var x=new XMLHttpRequest();x.open('POST',ANALYTICS_URL+'/track',true);x.setRequestHeader('Content-Type','application/json');x.send(JSON.stringify(payload));}catch(e){}
     var vd=getVData();if(!vd.events)vd.events=[];vd.events.push({type:event,ts:payload.ts,detail:detail,page:payload.page});
     if(vd.events.length>500)vd.events=vd.events.slice(-500);vd.lastSeen=payload.ts;saveVData(vd);
@@ -356,7 +366,7 @@ function injectSEOSchema(){
     "@context":"https://schema.org",
     "@type":"Organization",
     "name":"Precision Labs",
-    "alternateName":"Precision Labs",
+    "alternateName":"Precision USA Labs",
     "url":SITE,
     "logo":LOGO,
     "image":LOGO,
@@ -388,7 +398,7 @@ function injectSEOSchema(){
     "@context":"https://schema.org",
     "@type":"WebSite",
     "name":"Precision Labs",
-    "alternateName":"Precision Labs",
+    "alternateName":"Precision USA Labs",
     "url":SITE,
     "description":"Premium research peptides with 99%+ purity. Veteran-owned, third-party lab tested.",
     "potentialAction":{
@@ -1383,7 +1393,7 @@ setInterval(function(){if(isContact&&!document.getElementById('pp-contact')&&doc
 ;(function(){try{if(!/[?&]order=confirmed/.test(location.search))return;function show(){if(document.getElementById('pp-thx'))return;var o=document.createElement('div');o.id='pp-thx';o.style.cssText='position:fixed;inset:0;z-index:999999;background:rgba(10,15,40,.94);display:flex;align-items:center;justify-content:center;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:24px;';o.innerHTML='<div style="max-width:420px;text-align:center;color:#fff;background:#0e1b4d;border:1px solid #2a3a7a;border-radius:18px;padding:36px 28px;box-shadow:0 20px 60px rgba(0,0,0,.5)"><div style="font-size:54px;line-height:1;margin-bottom:14px">&#10003;</div><div style="font-size:23px;font-weight:700;margin-bottom:10px">Order received</div><div style="font-size:15px;opacity:.85;line-height:1.5;margin-bottom:22px">Thank you. A confirmation email is on its way. Your order is being prepared.</div><a href="https://www.precisionusalabs.com/" style="display:inline-block;background:#c9a24a;color:#0e1b4d;font-weight:700;text-decoration:none;padding:12px 26px;border-radius:10px">Continue</a></div>';document.body.appendChild(o);}if(document.body)show();else document.addEventListener('DOMContentLoaded',show);}catch(e){}})();
 ;(function(){try{var m=location.search.match(/[?&]promo=([A-Za-z0-9]+)/);if(!m)return;var c=m[1].toUpperCase();function go(){try{if(window.ppAffiliate&&ppAffiliate.codes[c]){ppAffiliate.apply(c);if(window.ppCartRefresh)ppCartRefresh();try{var _v=localStorage.getItem('pp_vid')||'';var _src=new URLSearchParams(location.search).get('src')||'';fetch('https://pin-travelers-parcel-authentication.trycloudflare.com/api/promo-event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'promo_visit',code:c,source:_src,referrer:document.referrer,vid:_v,ts:Date.now()})}).catch(function(){});}catch(e){}try{var _sh=document.getElementById('pp-shop');if(_sh)_sh.scrollIntoView({behavior:'smooth'});}catch(e){}try{var _t=document.createElement('div');_t.textContent=(ppAffiliate.codes[c].label||c)+' applied ✓';_t.style.cssText='position:fixed;top:64px;left:50%;transform:translateX(-50%);background:#0e1b4d;color:#fff;padding:12px 22px;border-radius:30px;font:600 14px system-ui,sans-serif;z-index:200000;box-shadow:0 6px 24px rgba(0,0,0,.3)';document.body.appendChild(_t);setTimeout(function(){_t.style.transition='opacity .5s';_t.style.opacity='0';setTimeout(function(){_t.remove();},500);},3500);}catch(e){}}}catch(e){}}var _done=false;function _go2(){if(_done)return;if(window.ppAffiliate&&ppAffiliate.codes[c]){_done=true;go();}}function poll(n){_go2();if(_done||n<=0)return;setTimeout(function(){poll(n-1);},400);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){poll(30);});else poll(30);}catch(e){}})();
 /* v26-rebrand-heading-fix 1778000000 — rewrite legacy "Precision Peptidez"/"Peptidez" in headings + title to "Precision Labs" */
-;(function(){try{function fix(str){return str.replace(/Precision\s+Peptidez/gi,'Precision Labs').replace(/Peptidez/gi,'Labs');}function rewriteHeadings(){try{var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);var n;while(n=w.nextNode()){if(/Peptidez/i.test(n.nodeValue))n.nodeValue=fix(n.nodeValue);}}catch(e){}try{if(document.title&&/Peptidez/i.test(document.title))document.title=fix(document.title);}catch(e){}try{var ms=document.querySelectorAll('meta[content]');for(var k=0;k<ms.length;k++){var c=ms[k].getAttribute('content');if(c&&/Peptidez/i.test(c))ms[k].setAttribute('content',fix(c));}}catch(e){}try{var as=document.querySelectorAll('a[href]');for(var q=0;q<as.length;q++){var hh=as[q].getAttribute('href');if(hh==='/about'||hh==='/about/')as[q].setAttribute('href','/about-us');else if(hh==='/shop'||hh==='/shop/'||hh==='/store'||hh==='/store/')as[q].setAttribute('href','/#pp-shop');}}catch(e){}}function run(){rewriteHeadings();}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();var tries=0;var iv=setInterval(function(){tries++;rewriteHeadings();if(tries>=10)clearInterval(iv);},700);try{var mo=new MutationObserver(function(){rewriteHeadings();});mo.observe(document.documentElement,{childList:true,subtree:true});setTimeout(function(){try{mo.disconnect();}catch(e){}},9000);}catch(e){}}catch(e){}})();
+;(function(){try{function fix(str){return String(str||'').replace(/Precision\s+Peptidez/gi,'Precision Labs').replace(/Pure\s*Fusion\s*Peptides/gi,'Precision Labs').replace(/info@pure-?fusionpeptides\.com/gi,'info@precisionusalabs.com').replace(/(?:www\.)?pure-?fusionpeptides\.com/gi,'www.precisionusalabs.com').replace(/Peptidez/gi,'Labs');}function hasLegacy(str){return /Peptidez|Pure\s*Fusion\s*Peptides|pure-?fusionpeptides\.com/i.test(String(str||''));}function rewriteHeadings(){try{var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);var n;while(n=w.nextNode()){if(hasLegacy(n.nodeValue))n.nodeValue=fix(n.nodeValue);}}catch(e){}try{if(hasLegacy(document.title))document.title=fix(document.title);}catch(e){}try{var ms=document.querySelectorAll('meta[content]');for(var k=0;k<ms.length;k++){var c=ms[k].getAttribute('content');if(hasLegacy(c))ms[k].setAttribute('content',fix(c));}}catch(e){}try{var as=document.querySelectorAll('a[href]');for(var q=0;q<as.length;q++){var hh=as[q].getAttribute('href')||'';if(hh==='/about'||hh==='/about/')as[q].setAttribute('href','/about-us');else if(hh==='/shop'||hh==='/shop/'||hh==='/store'||hh==='/store/')as[q].setAttribute('href','/#pp-shop');else if(hasLegacy(hh))as[q].setAttribute('href',fix(hh));}}catch(e){}}function run(){rewriteHeadings();}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();var tries=0;var iv=setInterval(function(){tries++;rewriteHeadings();if(tries>=10)clearInterval(iv);},700);try{var mo=new MutationObserver(function(){rewriteHeadings();});mo.observe(document.documentElement,{childList:true,subtree:true});setTimeout(function(){try{mo.disconnect();}catch(e){}},9000);}catch(e){}}catch(e){}})();
 
 (function(){try{var TXT='Products are offered for research use only. Not for human consumption. No medical or treatment claims are made or implied.';function shopBanner(){try{if(document.getElementById('pp-ruo-shop'))return true;var anchor=document.getElementById('pp-shop')||document.getElementById('pp-grid-title');if(!anchor||!anchor.parentNode)return false;var d=document.createElement('div');d.id='pp-ruo-shop';d.style.cssText='max-width:900px;margin:10px auto 4px;padding:8px 14px;font-family:Questrial,Arial,sans-serif;font-size:11px;line-height:1.5;color:#8a90a6;text-align:center;background:#f4f5fa;border:1px solid #e3e6f0;border-radius:8px';d.textContent=TXT;anchor.parentNode.insertBefore(d,anchor);return true;}catch(e){return false;}}function footerNote(){try{if(document.getElementById('pp-ruo-footer'))return true;var ft=document.getElementById('pp-footer');if(!ft)return false;var d=document.createElement('div');d.id='pp-ruo-footer';d.style.cssText='max-width:900px;margin:14px auto 0;padding-top:12px;border-top:1px solid rgba(255,255,255,0.15);font-family:Questrial,Arial,sans-serif;font-size:11px;line-height:1.5;color:#8f9bc6;text-align:center';d.textContent=TXT;ft.appendChild(d);return true;}catch(e){return false;}}function tick(){var a=shopBanner();var b=footerNote();return a&&b;}function boot(){try{if(tick())return;var n=0;var iv=setInterval(function(){n++;if(tick()||n>=30)clearInterval(iv);},700);}catch(e){}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();}catch(e){}})();
 
