@@ -796,7 +796,7 @@ d.addEventListener('click',function(e){var btn=e.target.closest('.pp-cb');if(btn
 try{injectSEOSchema();}catch(e){console.warn('SEO schema injection error:',e);}
 }
 function tryGo(){if(!document.getElementById('pp-hp')){go();}}
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',tryGo,{once:true});}else{tryGo();}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',tryGo,{once:true});}else{setTimeout(tryGo,0);}
 var ppHomeBootAttempts=0;var ppHomeBootTimer=setInterval(function(){ppHomeBootAttempts++;if((!document.getElementById('pp-hp')||!document.getElementById('pp-hdr'))&&(document.querySelector('#PAGES_CONTAINER')||document.querySelector('#SITE_PAGES'))){go();}if(document.getElementById('pp-hp')||ppHomeBootAttempts>=20)clearInterval(ppHomeBootTimer);},100);
 })();
 
