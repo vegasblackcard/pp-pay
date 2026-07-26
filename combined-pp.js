@@ -49,9 +49,15 @@
   function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
   function val(id){var e=document.getElementById(id);return e?(e.value||'').trim():'';}
   function rating(){var r=document.querySelector('input[name="pp-review-stars"]:checked');return r?r.value:'';}
-  function sendTrack(detail){try{
+  function fingerprint(detail){
+    var s=[detail.name,detail.contact,detail.review].join('|').toLowerCase().replace(/\s+/g,' ').trim();
+    var h=2166136261;
+    for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}
+    return 'review_'+(h>>>0).toString(36);
+  }
+  function sendTrack(detail,eventId){try{
     var now=Date.now();
-    var payload={vid:localStorage.getItem('pp_vid')||'',event:'review_submission',eventId:'review_'+now+'_'+Math.random().toString(36).slice(2,10),ts:now,page:location.pathname,detail:detail,referrer:document.referrer||''};
+    var payload={vid:localStorage.getItem('pp_vid')||'',event:'review_submission',eventId:eventId,ts:now,page:location.pathname,detail:detail,referrer:document.referrer||''};
     fetch(REVIEW_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});
   }catch(e){}}
   function openReviewForm(){
@@ -86,14 +92,23 @@
     document.getElementById('pp-review-close').onclick=function(){ov.remove();};
     document.getElementById('pp-review-submit').onclick=function(){
       var status=document.getElementById('pp-review-status');
+      var submit=document.getElementById('pp-review-submit');
       var data={name:val('pp-review-name'),contact:val('pp-review-contact'),product:val('pp-review-product'),rating:rating(),review:val('pp-review-text'),consent:!!document.getElementById('pp-review-consent').checked,createdAt:new Date().toISOString()};
       if(data.name.length<2){status.style.color='#c62828';status.textContent='Please enter the display name.';return;}
       if(data.contact.length<5){status.style.color='#c62828';status.textContent='Please add an email or phone so we can verify it.';return;}
       if(!data.rating){status.style.color='#c62828';status.textContent='Please select a rating.';return;}
       if(data.review.length<20){status.style.color='#c62828';status.textContent='Please write at least a sentence or two.';return;}
       if(!data.consent){status.style.color='#c62828';status.textContent='Please approve publishing after review.';return;}
-      try{var arr=JSON.parse(localStorage.getItem('pp_pending_reviews')||'[]');arr.push(data);localStorage.setItem('pp_pending_reviews',JSON.stringify(arr.slice(-20)));}catch(e){}
-      sendTrack(data);
+      var eventId=fingerprint(data);
+      try{
+        if(localStorage.getItem('pp_review_sent_'+eventId)){
+          status.style.color='#2e7d32';status.textContent='We already received this review. Thank you.';return;
+        }
+        var arr=JSON.parse(localStorage.getItem('pp_pending_reviews')||'[]');arr.push(data);localStorage.setItem('pp_pending_reviews',JSON.stringify(arr.slice(-20)));
+        localStorage.setItem('pp_review_sent_'+eventId,data.createdAt);
+      }catch(e){}
+      submit.disabled=true;submit.textContent='Submitted';submit.style.opacity='.7';
+      sendTrack(data,eventId);
       var body='Precision Labs Review Submission%0A%0AName: '+encodeURIComponent(data.name)+'%0AContact: '+encodeURIComponent(data.contact)+'%0AProduct: '+encodeURIComponent(data.product)+'%0ARating: '+encodeURIComponent(data.rating)+' stars%0A%0AReview:%0A'+encodeURIComponent(data.review)+'%0A%0AConsent to publish after approval: yes';
       try{navigator.clipboard&&navigator.clipboard.writeText('Precision Labs Review\\nName: '+data.name+'\\nContact: '+data.contact+'\\nProduct: '+data.product+'\\nRating: '+data.rating+' stars\\nReview: '+data.review).catch(function(){});}catch(e){}
       status.style.color='#2e7d32';
@@ -1607,12 +1622,13 @@ if(ppShellAttempts>=12)clearInterval(ppShellTimer);
 /* ==== Customer Reviews render (data-driven; add future reviews to PP_REVIEWS) — 2026-07-18 ==== */
 ;(function(){
   var PP_REVIEWS=[
-    {name:'Alexandra P.',rating:5,product:'Glow & Retatrutide',date:'Jul 2026',text:"I’ve ordered both Glow and Retatrutide through him and his team, and I’m already down almost 20 pounds and counting! The results have honestly exceeded my expectations, but what’s impressed me just as much is the support. He took the time to answer every question, explain everything thoroughly, and recommend the right supplements for my goals without ever trying to upsell me. He’s incredibly knowledgeable, responsive, and genuinely passionate about helping people succeed. If you’re looking for high-quality products, honest guidance, and exceptional customer service, I couldn’t recommend him and his team more!"}
+    {name:'Alexandra P.',rating:5,product:'Glow & Retatrutide',date:'Jul 2026',badge:'Verified',text:"I’ve ordered both Glow and Retatrutide through him and his team, and I’m already down almost 20 pounds and counting! The results have honestly exceeded my expectations, but what’s impressed me just as much is the support. He took the time to answer every question, explain everything thoroughly, and recommend the right supplements for my goals without ever trying to upsell me. He’s incredibly knowledgeable, responsive, and genuinely passionate about helping people succeed. If you’re looking for high-quality products, honest guidance, and exceptional customer service, I couldn’t recommend him and his team more!"},
+    {name:'Sarah S.',rating:5,product:'Precision Labs membership',date:'Jul 2026',badge:'Customer submitted',text:"After trying peptides from a few different companies, I decided to switch to Precision Peptides, and I’m so glad I did. One thing that really stood out to me was their transparency. They provided independent third-party lab testing for the batches I received, so I was able to review the results myself and see the purity of the peptides. That gave me a level of confidence I hadn’t had before. I’ve been using Precision Peptides for about 6 months, and my weight has gone from 158 lbs to 132 lbs with steady, consistent weight loss. I used a combination of Retatrutide and Klow & Glow, and they’ve been a big part of my journey alongside making healthier lifestyle choices. I also chose their monthly membership, which included access to a peptide consultant. That support was invaluable. They took the time to explain what I was taking, how each peptide works in the body, how to use them correctly, and answered every question I had. I never felt rushed, and I learned so much throughout the process. For me, the combination of transparent third-party testing, knowledgeable support, and the results I’ve achieved is why I’ve continued using Precision Peptides. Everyone’s journey is different, but I’m incredibly happy with mine and grateful for the guidance and support I’ve received over the last six months. Thank you Precision!"}
   ];
   function stars(n){var s='';for(var i=0;i<5;i++){s+='<span style="color:'+(i<n?'#f5a623':'#dcdce3')+'">★</span>';}return s;}
   function esc(t){return String(t).replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function render(){var c=document.getElementById('pp-review-cards');if(!c||c.getAttribute('data-done'))return;if(!PP_REVIEWS.length)return;c.setAttribute('data-done','1');
-    c.innerHTML=PP_REVIEWS.map(function(r){return '<div style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #edf0f7;text-align:left"><div style="font-size:19px;letter-spacing:2px;margin:0 0 10px">'+stars(r.rating)+'</div><p style="font-size:14px;color:#333;line-height:1.65;margin:0 0 14px">“'+esc(r.text)+'”</p><div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid #f0f0f0;padding-top:12px"><div><div style="font-weight:700;color:#0e1b4d;font-size:14px">'+esc(r.name)+'</div><div style="font-size:12px;color:#888">'+esc(r.product)+' · '+esc(r.date)+'</div></div><span style="font-size:11px;font-weight:700;color:#2e7d32;background:#e8f5e9;padding:4px 10px;border-radius:20px;white-space:nowrap">✓ Verified</span></div></div>';}).join('');}
+    c.innerHTML=PP_REVIEWS.map(function(r){return '<div style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #edf0f7;text-align:left"><div style="font-size:19px;letter-spacing:2px;margin:0 0 10px">'+stars(r.rating)+'</div><p style="font-size:14px;color:#333;line-height:1.65;margin:0 0 14px">“'+esc(r.text)+'”</p><div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid #f0f0f0;padding-top:12px"><div><div style="font-weight:700;color:#0e1b4d;font-size:14px">'+esc(r.name)+'</div><div style="font-size:12px;color:#888">'+esc(r.product)+' · '+esc(r.date)+'</div></div><span style="font-size:11px;font-weight:700;color:#2e7d32;background:#e8f5e9;padding:4px 10px;border-radius:20px;white-space:nowrap">✓ '+esc(r.badge||'Customer submitted')+'</span></div></div>';}).join('')+'<p style="grid-column:1/-1;font-size:11px;color:#6b7280;line-height:1.5;margin:4px 0 0;text-align:center">Customer-submitted experiences are individual and are not medical advice. Results vary.</p>';}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
   var n=0;var iv=setInterval(function(){n++;render();if(n>=15)clearInterval(iv);},600);
 })();
