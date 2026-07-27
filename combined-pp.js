@@ -1178,7 +1178,7 @@ function initContact(){
 if(!document.body||document.getElementById('pp-contact'))return;
 injectPageShell();
 var cf=document.createElement('div');cf.id='pp-contact';cf.className='pp-cf';
-cf.innerHTML='<h1>Contact Us</h1><p>Have a question? Send us a message and we\'ll get back to you.</p><form id="pp-cform"><label>Name</label><input type="text" id="pp-cn" required><label>Email</label><input type="email" id="pp-ce" required><label>Message</label><textarea id="pp-cm" required></textarea><button type="submit">Send Message</button></form>';
+cf.innerHTML='<h1>Contact Precision Labs</h1><p>Have a question? Send us a message and we\'ll get back to you.<br><a href="mailto:info@precisionusalabs.com" style="display:inline-block;margin-top:8px;color:#4770db;font-weight:600">info@precisionusalabs.com</a></p><form id="pp-cform"><label>Name</label><input type="text" id="pp-cn" required><label>Email</label><input type="email" id="pp-ce" required><label>Message</label><textarea id="pp-cm" required></textarea><button type="submit">Send Message</button></form>';
 document.body.appendChild(cf);
 document.getElementById('pp-cform').onsubmit=function(e){e.preventDefault();var n=document.getElementById('pp-cn').value;cf.innerHTML='<div class="pp-sent"><h1>Thank You!</h1><p>Thanks '+n+', your message has been sent. We\'ll get back to you soon.</p><p><span onclick="window.location.href=\'/\'" style="color:#4770db;font-weight:600;cursor:pointer">Back to Home</span></p></div>';};
 }
