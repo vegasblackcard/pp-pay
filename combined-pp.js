@@ -311,13 +311,14 @@
     var p=location.pathname.replace(/\/+$/,'')||'/';
     if(p!=='/'&&p!=='/home')return;
     if(document.getElementById('pp-clean-contact'))return;
-    var anchor=document.getElementById('pp-footer')||document.body.lastElementChild;
     if(!document.body)return;
+    var anchor=document.getElementById('pp-footer')||document.querySelector('footer,[data-mesh-id$="SITE_FOOTERinlineContent"],#SITE_FOOTER');
+    if(!anchor)return;
     var d=document.createElement('section');
     d.id='pp-clean-contact';
     d.style.cssText='position:relative;z-index:9000;background:#fff;padding:32px 18px;margin:0 auto;font-family:Questrial,Arial,sans-serif;text-align:center;border-top:1px solid #e5e7eb';
-    d.innerHTML='<h2 style="font-family:Archivo,Arial,sans-serif;font-size:26px;color:#0e1b4d;margin:0 0 8px">Contact Precision Labs</h2><p style="font-size:14px;color:#555;margin:0 0 14px">Veteran-owned research support based in Henderson, Nevada.</p><p style="margin:0;line-height:1.8"><a href="mailto:info@precisionusalabs.com" style="color:#4770db;font-weight:700">info@precisionusalabs.com</a><br><a href="tel:+17253396023" style="color:#0e1b4d;font-weight:700">(725) 339-6023</a></p>';
-    if(anchor&&anchor.parentNode)anchor.parentNode.insertBefore(d,anchor);else document.body.appendChild(d);
+    d.innerHTML='<h2 style="font-family:Archivo,Arial,sans-serif;font-size:26px;color:#0e1b4d;margin:0 0 8px">Contact Precision Labs</h2><p style="font-size:14px;color:#555;margin:0 0 14px">Veteran-owned research support based in Las Vegas, Nevada.</p><p style="margin:0;line-height:1.8"><span style="color:#0e1b4d;font-weight:700">3200 S Las Vegas Blvd, Las Vegas, NV 89109</span><br><a href="mailto:info@precisionusalabs.com" style="color:#4770db;font-weight:700">info@precisionusalabs.com</a><br><a href="tel:+17253396023" style="color:#0e1b4d;font-weight:700">(725) 339-6023</a></p>';
+    anchor.appendChild(d);
   }
   function run(){removeLegacyContact();addHomeContact();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
@@ -550,8 +551,10 @@ function injectSEOSchema(){
     "description":"Veteran-owned research peptide supplier offering 80+ premium research products with third-party lab testing and documentation support. Serving researchers nationwide.",
     "address":{
       "@type":"PostalAddress",
-      "addressLocality":"Henderson",
+      "streetAddress":"3200 S Las Vegas Blvd",
+      "addressLocality":"Las Vegas",
       "addressRegion":"NV",
+      "postalCode":"89109",
       "addressCountry":"US"
     },
     "geo":{
@@ -1551,7 +1554,7 @@ if(ppShellAttempts>=12)clearInterval(ppShellTimer);
   function setMeta(name,val,prop){try{var sel=prop?'meta[property="'+name+'"]':'meta[name="'+name+'"]';var m=document.querySelector(sel);if(!m){m=document.createElement('meta');m.setAttribute(prop?'property':'name',name);document.head.appendChild(m);}m.setAttribute('content',val);}catch(e){}}
   function applySEO(){var e=SEO[P];if(!e)return;if(e.t){document.title=e.t;setMeta('og:title',e.t,true);setMeta('twitter:title',e.t,true);}if(e.d){setMeta('description',e.d);setMeta('og:description',e.d,true);setMeta('twitter:description',e.d,true);}}
   function blogH1(){if(P!=='/blog')return;try{var hs=document.querySelectorAll('h1,h2,[role="heading"]');for(var i=0;i<hs.length;i++){var tx=(hs[i].textContent||'').trim();if(/^welcome$/i.test(tx)){var wn=document.createTreeWalker(hs[i],NodeFilter.SHOW_TEXT,null,false);var nn;while(nn=wn.nextNode()){if(/welcome/i.test(nn.nodeValue))nn.nodeValue=nn.nodeValue.replace(/welcome/i,'Precision Labs Research Education');}}}}catch(e){}}
-  function schema(){try{if(!document.getElementById('pp-org-schema')){var org={"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"name":"Precision Labs","url":"https://www.precisionusalabs.com","logo":"https://www.precisionusalabs.com/favicon.ico","telephone":"+17253396023","email":"info@precisionusalabs.com","address":{"@type":"PostalAddress","addressLocality":"Henderson","addressRegion":"NV","addressCountry":"US"},"contactPoint":{"@type":"ContactPoint","contactType":"customer support","telephone":"+17253396023","url":"https://www.precisionusalabs.com/contact"},"sameAs":["https://www.instagram.com/precisionusalabs","https://www.tiktok.com/@precisionpeptidez.lv","https://www.linkedin.com/company/precision-peptidez"]};var s=document.createElement('script');s.type='application/ld+json';s.id='pp-org-schema';s.textContent=JSON.stringify(org);document.head.appendChild(s);}if(P!=='/'&&!document.getElementById('pp-bc-schema')){var nm=(document.title||'').split('|')[0].split(' - ')[0].trim()||P.replace(/\//g,'');var bc={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.precisionusalabs.com/"},{"@type":"ListItem","position":2,"name":nm,"item":"https://www.precisionusalabs.com"+P}]};var s2=document.createElement('script');s2.type='application/ld+json';s2.id='pp-bc-schema';s2.textContent=JSON.stringify(bc);document.head.appendChild(s2);}}catch(e){}}
+  function schema(){try{if(!document.getElementById('pp-org-schema')){var org={"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"name":"Precision Labs","url":"https://www.precisionusalabs.com","logo":"https://www.precisionusalabs.com/favicon.ico","telephone":"+17253396023","email":"info@precisionusalabs.com","address":{"@type":"PostalAddress","streetAddress":"3200 S Las Vegas Blvd","addressLocality":"Las Vegas","addressRegion":"NV","postalCode":"89109","addressCountry":"US"},"contactPoint":{"@type":"ContactPoint","contactType":"customer support","telephone":"+17253396023","url":"https://www.precisionusalabs.com/contact"},"sameAs":["https://www.instagram.com/precisionusalabs","https://www.tiktok.com/@precisionpeptidez.lv","https://www.linkedin.com/company/precision-peptidez"]};var s=document.createElement('script');s.type='application/ld+json';s.id='pp-org-schema';s.textContent=JSON.stringify(org);document.head.appendChild(s);}if(P!=='/'&&!document.getElementById('pp-bc-schema')){var nm=(document.title||'').split('|')[0].split(' - ')[0].trim()||P.replace(/\//g,'');var bc={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.precisionusalabs.com/"},{"@type":"ListItem","position":2,"name":nm,"item":"https://www.precisionusalabs.com"+P}]};var s2=document.createElement('script');s2.type='application/ld+json';s2.id='pp-bc-schema';s2.textContent=JSON.stringify(bc);document.head.appendChild(s2);}}catch(e){}}
   function run(){applySEO();blogH1();schema();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
   var n=0;var iv=setInterval(function(){n++;run();if(n>=12)clearInterval(iv);},500);
