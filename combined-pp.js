@@ -257,6 +257,75 @@
 })();
 
 /* ============================================================
+   HIDE WIX NATIVE CONTACT FORM + SAN FRANCISCO GOOGLE MAP
+   The native template contact block is still rendered on the live site.
+   Hide those Wix components and replace contact content with branded info.
+   ============================================================ */
+(function(){try{
+  var IDS=[
+    'comp-mmh870bo','comp-mmh870dn','comp-mmh870d11','comp-mmh870d32',
+    'comp-mmh870db2','comp-mmh870dc2','comp-mmh870dd','comp-mmh870dh',
+    'comp-mmh870dg1','comp-mmh870c8','comp-mmh870cc2','comp-mmh870cm1',
+    'comp-mmh870cn4','comp-mmh870co1','comp-mmh870co6','comp-mmh870cp6',
+    'comp-mmh870cp11','comp-mmh870cq6','comp-mmh870dl','comp-mmh7r3dd',
+    'comp-mmh7r3el1','comp-mmh7r3ep2','comp-mmh7r3f22','comp-mmh7r3eg',
+    'comp-mmh7r3f8'
+  ];
+  function cssId(id){return '#'+id;}
+  var st=document.createElement('style');
+  st.id='pp-contact-hard-hide';
+  st.textContent=IDS.map(cssId).join(',')+'{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;height:0!important;min-height:0!important;overflow:hidden!important} iframe[src*="google.com/maps"], iframe[src*="maps.google"], [data-testid*="google"], [aria-label*="Google Map"]{display:none!important;visibility:hidden!important}';
+  (document.head||document.documentElement).appendChild(st);
+  function hide(el){
+    if(!el)return;
+    el.style.setProperty('display','none','important');
+    el.style.setProperty('visibility','hidden','important');
+    el.style.setProperty('opacity','0','important');
+    el.style.setProperty('height','0','important');
+    el.style.setProperty('min-height','0','important');
+    el.style.setProperty('overflow','hidden','important');
+    el.setAttribute('aria-hidden','true');
+  }
+  function legacyText(el){
+    var t=(el&&el.textContent||'').replace(/\s+/g,' ').trim();
+    return /Contact form|San Francisco|Civic Center|Mission Bay|Golden Gate|Hayes Valley/i.test(t);
+  }
+  function removeLegacyContact(){
+    for(var i=0;i<IDS.length;i++)hide(document.getElementById(IDS[i]));
+    var maps=document.querySelectorAll('iframe[src*="google.com/maps"],iframe[src*="maps.google"],[aria-label*="Google Map"],[data-testid*="google"]');
+    for(var m=0;m<maps.length;m++){
+      var p=maps[m];
+      for(var d=0;d<5&&p&&p!==document.body;d++){if(/^comp-/.test(p.id||'')||legacyText(p)){hide(p);break;}p=p.parentElement;}
+      hide(maps[m]);
+    }
+    var nodes=document.querySelectorAll('section,div');
+    for(var n=0;n<nodes.length;n++){
+      if(legacyText(nodes[n])&&nodes[n].querySelector('input,textarea,iframe,button'))hide(nodes[n]);
+    }
+    if(location.pathname.replace(/\/+$/,'')==='/contact'&&!document.getElementById('pp-contact')){
+      var boot=window.initContact||null;
+      if(typeof boot==='function')boot();
+    }
+  }
+  function addHomeContact(){
+    var p=location.pathname.replace(/\/+$/,'')||'/';
+    if(p!=='/'&&p!=='/home')return;
+    if(document.getElementById('pp-clean-contact'))return;
+    var anchor=document.getElementById('pp-footer')||document.body.lastElementChild;
+    if(!document.body)return;
+    var d=document.createElement('section');
+    d.id='pp-clean-contact';
+    d.style.cssText='position:relative;z-index:9000;background:#fff;padding:32px 18px;margin:0 auto;font-family:Questrial,Arial,sans-serif;text-align:center;border-top:1px solid #e5e7eb';
+    d.innerHTML='<h2 style="font-family:Archivo,Arial,sans-serif;font-size:26px;color:#0e1b4d;margin:0 0 8px">Contact Precision Labs</h2><p style="font-size:14px;color:#555;margin:0 0 14px">Veteran-owned research support based in Henderson, Nevada.</p><p style="margin:0;line-height:1.8"><a href="mailto:info@precisionusalabs.com" style="color:#4770db;font-weight:700">info@precisionusalabs.com</a><br><a href="tel:+17253396023" style="color:#0e1b4d;font-weight:700">(725) 339-6023</a></p>';
+    if(anchor&&anchor.parentNode)anchor.parentNode.insertBefore(d,anchor);else document.body.appendChild(d);
+  }
+  function run(){removeLegacyContact();addHomeContact();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+  var tries=0,iv=setInterval(function(){tries++;run();if(tries>=30)clearInterval(iv);},500);
+  try{new MutationObserver(run).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+}catch(e){}})();
+
+/* ============================================================
    GOOGLE ANALYTICS (GA4)
    ============================================================ */
 (function(){
