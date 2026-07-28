@@ -592,6 +592,8 @@ function injectSEOSchema(){
         "image":imgUrl,
         "url":SITE+'/product-page/'+pr[2],
         "sku":safeSku,
+        "mpn":safeSku,
+        "identifierExists":false,
         "description":pr[0]+' — premium research peptide, 99%+ purity, third-party lab tested with Certificate of Analysis.',
         "brand":{
           "@type":"Brand",
@@ -1307,7 +1309,7 @@ window.scrollTo(0,0);
 /* JSON-LD Product Schema */
 var oldLd=document.getElementById('pp-product-ld');if(oldLd)oldLd.remove();
 var pld=document.createElement('script');pld.type='application/ld+json';pld.id='pp-product-ld';
-loadDescs().then(function(descs){var desc=descs[slug]||'Research-grade peptide, third-party tested for purity.';desc=desc.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().substring(0,300);var safeSku=(slug&&slug.length>0&&slug.length<=60)?slug:('PFP-'+(prod[0]||'').replace(/[^a-z0-9]+/gi,'-').slice(0,40));pld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"Product","name":prod[0],"sku":safeSku,"description":desc,"brand":{"@type":"Brand","name":"Precision Labs"},"offers":{"@type":"Offer","priceCurrency":"USD","price":String(prod[3]),"availability":"https://schema.org/InStock","url":"https://www.precisionusalabs.com/product-page/"+slug,"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"US","returnPolicyCategory":"https://schema.org/MerchantReturnNotPermitted"}}});document.head.appendChild(pld);});
+loadDescs().then(function(descs){var desc=descs[slug]||'Research-grade peptide, third-party tested for purity.';desc=desc.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().substring(0,300);var safeSku=(slug&&slug.length>0&&slug.length<=60)?slug:('PFP-'+(prod[0]||'').replace(/[^a-z0-9]+/gi,'-').slice(0,40));pld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"Product","name":prod[0],"sku":safeSku,"mpn":safeSku,"identifierExists":false,"description":desc,"brand":{"@type":"Brand","name":"Precision Labs"},"offers":{"@type":"Offer","priceCurrency":"USD","price":String(prod[3]),"availability":"https://schema.org/InStock","url":"https://www.precisionusalabs.com/product-page/"+slug,"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"US","returnPolicyCategory":"https://schema.org/MerchantReturnNotPermitted"}}});document.head.appendChild(pld);});
 var curSlug=slug;
 /* dose-variant picker (two squares) — swaps SKU + price in-modal. Add groups here. */
 (function(){
