@@ -310,6 +310,7 @@
   function addHomeContact(){
     var p=location.pathname.replace(/\/+$/,'')||'/';
     if(p!=='/'&&p!=='/home')return;
+    return;
     if(document.getElementById('pp-clean-contact'))return;
     if(!document.body)return;
     var anchor=document.getElementById('pp-footer')||document.querySelector('footer,[data-mesh-id$="SITE_FOOTERinlineContent"],#SITE_FOOTER');
