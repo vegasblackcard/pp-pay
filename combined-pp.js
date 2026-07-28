@@ -430,8 +430,8 @@ function injectSEOSchema(){
     "logo":LOGO,
     "image":LOGO,
     "description":"Precision Labs is a Marine veteran-owned research peptide supplier offering 80+ premium peptides with 99%+ purity, independent third-party lab testing, and Certificates of Analysis available on request.",
-    "telephone":"+17029948002",
-    "email":"Bennie@vegasblackcard.com",
+    "telephone":"+17253396023",
+    "email":"info@precisionusalabs.com",
     "founder":{
       "@type":"Person",
       "name":"USMC Veteran",
@@ -439,13 +439,13 @@ function injectSEOSchema(){
     },
     "foundingDate":"2025",
     "sameAs":[
-      "https://www.linkedin.com/company/precisionpeptidez",
-      "https://www.instagram.com/precisionpeptidez",
-      "https://www.tiktok.com/@precisionpeptidez"
+      "https://www.instagram.com/precisionusalabs",
+      "https://www.tiktok.com/@precisionpeptidez.lv",
+      "https://www.linkedin.com/company/precision-peptidez"
     ],
     "contactPoint":{
       "@type":"ContactPoint",
-      "telephone":"+17029948002",
+      "telephone":"+17253396023",
       "contactType":"customer service",
       "availableLanguage":"English",
       "areaServed":"US"
@@ -477,8 +477,8 @@ function injectSEOSchema(){
     "name":"Precision Labs",
     "image":LOGO,
     "url":SITE,
-    "telephone":"+17029948002",
-    "description":"Veteran-owned research peptide supplier offering 80+ premium peptides with 99%+ purity and third-party lab testing. Serving researchers nationwide.",
+    "telephone":"+17253396023",
+    "description":"Veteran-owned research peptide supplier offering 80+ premium research products with third-party lab testing and documentation support. Serving researchers nationwide.",
     "address":{
       "@type":"PostalAddress",
       "addressLocality":"Henderson",
@@ -1469,8 +1469,8 @@ if(ppShellAttempts>=12)clearInterval(ppShellTimer);
   var P=(location.pathname||'/').replace(/\/+$/,'').toLowerCase()||'/';
   var SEO={
     '/services':{t:'Research Product Services | Precision Labs',d:'Explore Precision Labs research-use product support, documentation, lab-testing standards, and customer guidance.'},
-    '/research-use':{d:'Learn what research-use-only means, how Precision Labs positions products, and why compliance-safe education matters.'},
-    '/lab-testing':{d:'Review lab-testing standards, documentation practices, and quality transparency for Precision Labs products.'},
+    '/research-use':{t:'Research Use Only Policy | Precision Labs',d:'Learn what research-use-only means, how Precision Labs positions products, and why compliance-safe education matters.'},
+    '/lab-testing':{t:'Lab Testing & COAs | Precision Labs',d:'Review lab-testing standards, documentation practices, and quality transparency for Precision Labs products.'},
     '/about-us':{d:'Precision Labs focuses on research-use transparency, product documentation, lab-testing standards, and professional customer support.'},
     '/contact':{d:'Contact Precision Labs for research-use product questions, documentation support, and customer service.'},
     '/blog':{d:'Read Precision Labs research-use education, lab-testing guidance, product documentation tips, and compliance-safe research product information.'},
@@ -1480,9 +1480,9 @@ if(ppShellAttempts>=12)clearInterval(ppShellTimer);
     '/book-online':{d:'Book a Precision Labs consultation or support session for research-use product guidance and documentation questions.'}
   };
   function setMeta(name,val,prop){try{var sel=prop?'meta[property="'+name+'"]':'meta[name="'+name+'"]';var m=document.querySelector(sel);if(!m){m=document.createElement('meta');m.setAttribute(prop?'property':'name',name);document.head.appendChild(m);}m.setAttribute('content',val);}catch(e){}}
-  function applySEO(){var e=SEO[P];if(!e)return;if(e.d){setMeta('description',e.d);setMeta('og:description',e.d,true);setMeta('twitter:description',e.d,true);}}
+  function applySEO(){var e=SEO[P];if(!e)return;if(e.t){document.title=e.t;setMeta('og:title',e.t,true);setMeta('twitter:title',e.t,true);}if(e.d){setMeta('description',e.d);setMeta('og:description',e.d,true);setMeta('twitter:description',e.d,true);}}
   function blogH1(){if(P!=='/blog')return;try{var hs=document.querySelectorAll('h1,h2,[role="heading"]');for(var i=0;i<hs.length;i++){var tx=(hs[i].textContent||'').trim();if(/^welcome$/i.test(tx)){var wn=document.createTreeWalker(hs[i],NodeFilter.SHOW_TEXT,null,false);var nn;while(nn=wn.nextNode()){if(/welcome/i.test(nn.nodeValue))nn.nodeValue=nn.nodeValue.replace(/welcome/i,'Precision Labs Research Education');}}}}catch(e){}}
-  function schema(){try{if(!document.getElementById('pp-org-schema')){var org={"@context":"https://schema.org","@type":"Organization","name":"Precision Labs","url":"https://www.precisionusalabs.com","logo":"https://www.precisionusalabs.com/favicon.ico","contactPoint":{"@type":"ContactPoint","contactType":"customer support","url":"https://www.precisionusalabs.com/contact"},"sameAs":["https://www.instagram.com/precisionpeptidez","https://www.tiktok.com/@precisionpeptidez","https://www.linkedin.com/company/precisionpeptidez"]};var s=document.createElement('script');s.type='application/ld+json';s.id='pp-org-schema';s.textContent=JSON.stringify(org);document.head.appendChild(s);}if(P!=='/'&&!document.getElementById('pp-bc-schema')){var nm=(document.title||'').split('|')[0].split(' - ')[0].trim()||P.replace(/\//g,'');var bc={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.precisionusalabs.com/"},{"@type":"ListItem","position":2,"name":nm,"item":"https://www.precisionusalabs.com"+P}]};var s2=document.createElement('script');s2.type='application/ld+json';s2.id='pp-bc-schema';s2.textContent=JSON.stringify(bc);document.head.appendChild(s2);}}catch(e){}}
+  function schema(){try{if(!document.getElementById('pp-org-schema')){var org={"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"name":"Precision Labs","url":"https://www.precisionusalabs.com","logo":"https://www.precisionusalabs.com/favicon.ico","telephone":"+17253396023","email":"info@precisionusalabs.com","address":{"@type":"PostalAddress","addressLocality":"Henderson","addressRegion":"NV","addressCountry":"US"},"contactPoint":{"@type":"ContactPoint","contactType":"customer support","telephone":"+17253396023","url":"https://www.precisionusalabs.com/contact"},"sameAs":["https://www.instagram.com/precisionusalabs","https://www.tiktok.com/@precisionpeptidez.lv","https://www.linkedin.com/company/precision-peptidez"]};var s=document.createElement('script');s.type='application/ld+json';s.id='pp-org-schema';s.textContent=JSON.stringify(org);document.head.appendChild(s);}if(P!=='/'&&!document.getElementById('pp-bc-schema')){var nm=(document.title||'').split('|')[0].split(' - ')[0].trim()||P.replace(/\//g,'');var bc={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.precisionusalabs.com/"},{"@type":"ListItem","position":2,"name":nm,"item":"https://www.precisionusalabs.com"+P}]};var s2=document.createElement('script');s2.type='application/ld+json';s2.id='pp-bc-schema';s2.textContent=JSON.stringify(bc);document.head.appendChild(s2);}}catch(e){}}
   function run(){applySEO();blogH1();schema();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
   var n=0;var iv=setInterval(function(){n++;run();if(n>=12)clearInterval(iv);},500);
@@ -1495,10 +1495,11 @@ if(ppShellAttempts>=12)clearInterval(ppShellTimer);
   function setCanon(href){try{var l=document.querySelector('link[rel="canonical"]');if(!l){l=document.createElement('link');l.setAttribute('rel','canonical');document.head.appendChild(l);}l.setAttribute('href',href);}catch(e){}}
   var EXTRA={'/shop':'Shop premium research peptides at Precision Labs — BPC-157, TB-500, Semaglutide, Retatrutide and 80+ compounds. Veteran-owned, third-party lab tested, 99%+ purity.','/product-page':'Research-grade peptide from Precision Labs — third-party lab tested for 99%+ purity. Veteran-owned, fast US shipping, full product documentation.'};
   function metaFix(){try{if(EXTRA[P]){setMeta('description',EXTRA[P]);setMeta('og:description',EXTRA[P],true);setMeta('twitter:description',EXTRA[P],true);}if(P==='/shop'){setCanon('https://www.precisionusalabs.com/');}}catch(e){}}
-  var H1MAP={'/':'Premium Research Peptides — Veteran-Owned','/shop':'Shop Research Peptides','/contact':'Contact Precision Labs'};
+  var H1MAP={'/':'Premium Research Products — Veteran-Owned','/shop':'Shop Research Products','/contact':'Contact Precision Labs','/research-use':'Research Use Only Policy','/lab-testing':'Lab Testing and COA Documentation','/about-us':'About Precision Labs','/services':'Research Product Services','/blog':'Precision Labs Research Education'};
   function h1Fix(){try{if(!H1MAP[P])return;if(document.querySelector('h1'))return;if(document.getElementById('pp-seo-h1'))return;var anchor=document.getElementById('pp-shop')||document.querySelector('.pp-hero')||document.querySelector('main')||document.body;if(!anchor)return;var h=document.createElement('h1');h.id='pp-seo-h1';h.textContent=H1MAP[P];h.style.cssText='position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0';(anchor.parentNode||document.body).insertBefore(h,anchor);}catch(e){}}
-  function mailFix(){try{var as=document.querySelectorAll('a[href^="mailto:"]');for(var i=0;i<as.length;i++){var hh=as[i].getAttribute('href')||'';if(/pure-?fusion/i.test(hh)){as[i].setAttribute('href','mailto:info@precisionusalabs.com');if(/pure-?fusion/i.test(as[i].textContent||''))as[i].textContent='info@precisionusalabs.com';}}}catch(e){}}
-  function run(){metaFix();h1Fix();mailFix();}
+  function mailFix(){try{var as=document.querySelectorAll('a[href^="mailto:"]');for(var i=0;i<as.length;i++){var hh=as[i].getAttribute('href')||'';if(/pure-?fusion|vegasblackcard/i.test(hh)){as[i].setAttribute('href','mailto:info@precisionusalabs.com');if(/pure-?fusion|vegasblackcard/i.test(as[i].textContent||''))as[i].textContent='info@precisionusalabs.com';}}}catch(e){}}
+  function socialFix(){try{var map=[[/facebook\.com\/wix/i,'https://www.facebook.com/profile.php?id=61573412866021'],[/twitter\.com\/wix|x\.com\/wix/i,'https://www.precisionusalabs.com/'],[/linkedin\.com\/company\/wix-com|linkedin\.com\/company\/precisionpeptidez/i,'https://www.linkedin.com/company/precision-peptidez'],[/instagram\.com\/wix|instagram\.com\/precisionpeptidez/i,'https://www.instagram.com/precisionusalabs']];var as=document.querySelectorAll('a[href]');for(var i=0;i<as.length;i++){var href=as[i].getAttribute('href')||'';for(var j=0;j<map.length;j++){if(map[j][0].test(href)){as[i].setAttribute('href',map[j][1]);as[i].setAttribute('rel','noopener');}}}}catch(e){}}
+  function run(){metaFix();h1Fix();mailFix();socialFix();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
   var n=0;var iv=setInterval(function(){n++;run();if(n>=12)clearInterval(iv);},500);
 }catch(e){}})();
