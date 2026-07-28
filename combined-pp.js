@@ -702,7 +702,7 @@ var P=[
 ["Alcohol Research Stack","e76a5f_68a48378063149938bc61e7f5913a432~mv2.png","alcohol-research-stack",250],
 ["AOD-9604 10mg","e76a5f_bbb4397bfcf44daf807594aa889c5d7d~mv2.png","aod-9604-10mg",70],
 ["ARA-290 10mg","e76a5f_f2f675a7eca54dccb551f350a22c822b~mv2.png","ara-290-10mg",50],
-["Bacteriostatic Water 10ml","e76a5f_c3bbe01bd92e4429bac119e512d6163f~mv2.png","bacteriostatic-water-10ml",10],
+["Bacteriostatic Water 10ml","e76a5f_c3bbe01bd92e4429bac119e512d6163f~mv2.png","bacteriostatic-water-10ml",7.95],
 ["Bacteriostatic Water 30ml","e76a5f_e338d3b98cfd435a9c67a78b0f1f5437~mv2.png","bacteriostatic-water-30ml",20],
 ["Bacteriostatic Water 3ml","e76a5f_b56c81950fcf45e7973ab25a31dfed48~mv2.png","bacteriostatic-water-3ml",3],
 ["Bacteriostatic Water 5ml","e76a5f_3cbe49e0ebb249bbb8d477af40ccf8c7~mv2.png","bacteriostatic-water-5ml",7],
