@@ -1490,7 +1490,7 @@ h+='<div style="background:#f8f9fc;border-radius:12px;padding:24px;text-align:ce
 h+='<p style="margin-top:20px;text-align:center"><span onclick="window.location.href=\'/\'" style="color:#4770db;font-weight:600;cursor:pointer">\u2190 Back to Home</span></p>';
 fq.innerHTML=h;document.body.appendChild(fq);}
 
-function initAll(){if(isContact)initContact();if(isAbout)initAbout();if(isServices)initServices();if(isLabTesting)initLabTesting();if(isCart)initCartPage();if(isBlog)initBlog();if(isTerms)initTerms();if(isFAQ)initFAQ();if(isDisclaimer)initDisclaimer();if(isResearch)initResearch();if(isHome)initModal();injectFooter();}
+function initAll(){if(isContact)initContact();if(isAbout)initAbout();if(isServices)initServices();if(isLabTesting)initLabTesting();if(isCart)initCartPage();if(isBlog)initBlog();if(isTerms)initTerms();if(isFAQ)initFAQ();if(isDisclaimer)initDisclaimer();if(isResearch)initResearch();if(isHome)initModal();if(!isHome)injectFooter();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAll,{once:true});else initAll();
 var ppShellAttempts=0,ppShellTimer=setInterval(function(){
 ppShellAttempts++;initAll();
