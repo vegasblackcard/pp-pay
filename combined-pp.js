@@ -752,7 +752,7 @@ var P=[
 ["Pinealon 20mg","e76a5f_8a002e02acad4e0a9d0ae693df2a143e~mv2.png","pinealon-20mg",70],
 ["PNC-27 10mg","e76a5f_59c1e44c33204fd39eb26ec94c1b6c0d~mv2.png","pnc-27-10mg",210],
 ["PNC-27 5mg","e76a5f_59c1e44c33204fd39eb26ec94c1b6c0d~mv2.png","pnc-27-5mg",125],
-["PT-141 (Bremelanotide) 10mg","e76a5f_3c3372127d8741ba82664967971b2b39~mv2.png","pt-141-bremelanotide-10mg",40],
+["PT-141 (Bremelanotide) 10mg","e76a5f_3c3372127d8741ba82664967971b2b39~mv2.png","pt-141-bremelanotide-10mg",65],
 ["Research Starter Kit","https://files.catbox.moe/5fhda3.png","research-starter-kit",20],
 ["Retatrutide 10mg","e76a5f_125227f9b07c4f18976a60ed7f8cd28b~mv2.png","retatrutide-10mg",100],
 ["Retatrutide 20mg","https://cdn.jsdelivr.net/gh/vegasblackcard/pp-pay@3fd0432/img/reta-20mg.png","retatrutide-20mg",160],
