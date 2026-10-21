@@ -1623,7 +1623,7 @@ if(ppShellAttempts>=12)clearInterval(ppShellTimer);
   }
   function resolveApi() {
     if (_apiPromise) return _apiPromise;
-    _apiPromise = fetch(RESOLVER_API, { headers: { Accept: 'application/vnd.github.raw' }, cache: 'no-store' })
+    _apiPromise = fetch(RESOLVER_API + '?t=' + Date.now(), { headers: { Accept: 'application/vnd.github.raw' }, cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('api ' + r.status); return r.json(); })
       .then(parseEndpoint)
       .catch(function () {
